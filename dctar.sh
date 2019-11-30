@@ -70,7 +70,7 @@ _PRINTPTF_ () {
 }
 
 _PRINTD_ () {
-	printf "%s\\n%s\\n" "Options for ${0##*/} are:" "0	see \` cat ${0##*/} \` "
+	printf "%s\\n%s\\n" "Options for ${0##*/} are:" "0	see \` cat $0 \` "
 	grep -w "elif \[" "$0" | awk '{print $5"	"$8" "$9" "$10" "$11" "$12" "$13}'
 	printf "%s\\n" "${0##*/} must be run with an option!"
 }
