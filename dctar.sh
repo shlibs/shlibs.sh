@@ -48,7 +48,7 @@ _PRINTDONE_ () {
 }
 
 _PRINTHDCT_ () {
-	printf "%s\\n%s\\n" "Options for ${0##*/} are:" "0	see \` cat $0 \` "
+	printf "%s\\n%s\\n" "Options for ${0##*/} are:" "0	see \` cat $0 \` for more information"
 	grep -w "elif \[" "$0" | awk '{print $5"	"$8" "$9" "$10" "$11" "$12" "$13}'
 	printf "%s\\n" "${0##*/} must be run with an option!"
 }
