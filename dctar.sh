@@ -38,6 +38,26 @@ _MAINDCTAR_ () {
 	_PRINTDONE_ 
 }
 
+_PRINTCPF_ () {
+	printf "%s\\n" "Cannot process *.tar.gz files!"  
+}
+
+_PRINTDONE_ () {
+	printf "DONE\\n"
+	printf "\033]2;%sDONE\007" "Processing *.tar.gz files: "
+}
+
+_PRINTHDCT_ () {
+	printf "%s\\n%s\\n" "Options for ${0##*/} are:" "0	see \` cat $0 \` "
+	grep -w "elif \[" "$0" | awk '{print $5"	"$8" "$9" "$10" "$11" "$12" "$13}'
+	printf "%s\\n" "${0##*/} must be run with an option!"
+}
+
+_PRINTPTF_ () {
+	printf "%s" "Processing *.tar.gz files: "
+	printf "\033]2;%sOK\007" "Processing *.tar.gz files: "
+}
+
 _PTGS_ () { # process *.tar.gz files for errors
 	for FNAME in $LTYPE
 	do 
@@ -55,29 +75,9 @@ _PTG_ () { # process a *.tar.gz file for errors
 	fi
 }
 
-_PRINTCPF_ () {
-	printf "%s\\n" "Cannot process *.tar.gz files!"  
-}
-
-_PRINTDONE_ () {
-	printf "DONE\\n"
-	printf "\033]2;%sDONE\007" "Processing *.tar.gz files: "
-}
-
-_PRINTPTF_ () {
-	printf "%s" "Processing *.tar.gz files: "
-	printf "\033]2;%sOK\007" "Processing *.tar.gz files: "
-}
-
-_PRINTD_ () {
-	printf "%s\\n%s\\n" "Options for ${0##*/} are:" "0	see \` cat $0 \` "
-	grep -w "elif \[" "$0" | awk '{print $5"	"$8" "$9" "$10" "$11" "$12" "$13}'
-	printf "%s\\n" "${0##*/} must be run with an option!"
-}
-
 if [ -z "${1:-}" ]
 then
-	_PRINTD_ 
+	_PRINTHDCT_ 
 else
 	_MAINDCTAR_ "$@" 
 fi
