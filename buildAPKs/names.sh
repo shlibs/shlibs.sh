@@ -13,6 +13,18 @@ _ANAMESDB_ () { # add NAMES if NAMES is not found in NAMES.db
 	fi
 }
 
+_DOBNAMES_ () {
+	if [ -z "${NAMESFL##*B*NAMES*}" ] 
+	then 
+		if ! grep -iw "$USENAME\ $DS\ $BT\ $NAMFS\ $NAPKS" "$RDR/var/db/$NAMES" 1>/dev/null # USENAME, DS, BT, NAMFS and NAPKS is not found in NAMES file 
+		then # add USENAME, DS, BT, NAMFS and NAPKS to NAMES file
+			printf "%s %s\\n" "$USENAME $DS $BT $NAMFS $NAPKS"
+		else
+			: # 			sed -i "$USENAME\ $DS\ $BT\ $NAMFS\ $NAPKS/d" "$RDR/var/db/$NAMES"
+		fi
+	fi
+}
+
 _NAMESMAINBLOCK_ () { # create *NAMES* file list and process $USENAME  
 	if [[ ! -f "$JDR/var/conf/NAMES.db" ]]
 	then
@@ -85,6 +97,7 @@ _NAMESLOG_ () { # check if USENAME is found in NAMES file, and adds USENAME, DS 
 		else # printf message if USENAME is found in NAMES file
 			printf "%s" "NOT adding $USENAME to ~/${RDR##*/}/var/db/$NAMES: $USENAME is already in file $NAMES: "
 		fi
+		_DOBNAMES_ 
 		_ANAMESDB_ 
 		_PRINTDONEN_ 
 	fi
