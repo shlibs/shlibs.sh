@@ -1,7 +1,7 @@
 #!/bin/env sh
 # Copyright 2019 (c) all rights reserved by S D Rausty;  See LICENSE  
 # https://sdrausty.github.io hosted courtesy https://pages.github.com
-# Run to update ~/buildAPKs and modules to the newest version
+# Updates ~/buildAPKs and submodules to the newest available version.
 #####################################################################
 set -eu 
 RDR="$HOME/buildAPKs" # define root directory
