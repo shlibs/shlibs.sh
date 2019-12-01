@@ -6,7 +6,7 @@
 set -eu 
 RDR="$HOME/buildAPKs" # define root directory
 cd "$RDR" # change directory to root directory
-git pull # run ` git pull ` 
+git pull # run ` git pull ` to update the https://github.com/BuildAPKs/buildAPKs git repository to the newest version 
 rm -f scripts/bash/shlibs/.git scripts/sh/shlibs/.git  # remove automatically generated submodule .git files
 sleep 0.42 # intensify latency support on fast networks;  ` grep -hC 4 -r sleep ~/buildAPKs/scripts ` shows additional latency usage of ` sleep ` in BuildAPKs once BuildAPKs is installed
 git submodule update --init --recursive --remote scripts/bash/shlibs # ` git submodule help ` and https://git-scm.com/book/en/v2/Git-Tools-Submodules have more information.  This book is hosted at https://github.com/progit/progit2
