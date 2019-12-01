@@ -8,8 +8,8 @@ cd "$RDR"
 git pull
 rm -f scripts/bash/shlibs/.git
 rm -f scripts/sh/shlibs/.git
-sleep 0.2
+sleep 0.2 # network latency support
 git submodule update --init --recursive --remote scripts/bash/shlibs
-sleep 0.2
+sleep 0.2 # network latency support
 git submodule update --init --recursive --remote scripts/sh/shlibs
 # up.sh EOF
