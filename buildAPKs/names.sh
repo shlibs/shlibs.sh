@@ -16,12 +16,13 @@ _ANAMESDB_ () { # add NAMES if NAMES is not found in NAMES.db
 _DOBNAMES_ () {
 	if [ -z "${NAMESFL##*B*NAMES*}" ] 
 	then 
-		if ! grep -iw "$USENAME\ $DS\ $BT\ $NAMFS\ $NAPKS" "$RDR/var/db/$NAMES" 1>/dev/null # USENAME, DS, BT, NAMFS and NAPKS is not found in NAMES file 
-		then # add USENAME, DS, BT, NAMFS and NAPKS to NAMES file
-			printf "%s %s\\n" "$USENAME $DS $BT $NAMFS $NAPKS"
-		else
-			: # 			sed -i "$USENAME\ $DS\ $BT\ $NAMFS\ $NAPKS/d" "$RDR/var/db/$NAMES"
-		fi
+		printf "%s %s\\n" "$USENAME $DS $BT $NAMFS $NAPKS" "${0##*/}"
+# 		if ! grep -iw "$USENAME\ $DS\ $BT\ $NAMFS\ $NAPKS" "$RDR/var/db/$NAMES" 1>/dev/null # USENAME, DS, BT, NAMFS and NAPKS is not found in NAMES file 
+# 		then # add USENAME, DS, BT, NAMFS and NAPKS to NAMES file
+# 			printf "%s %s\\n" "$USENAME $DS $BT $NAMFS $NAPKS"
+# 		else
+# 			: # 			sed -i "$USENAME\ $DS\ $BT\ $NAMFS\ $NAPKS/d" "$RDR/var/db/$NAMES"
+# 		fi
 	fi
 }
 
@@ -114,7 +115,7 @@ _PRINTPRN_() {
 }
 
 _PRINTO_ () {
-	printf "Availabel options for %s are: \\nCNAMES \\nENAMES \\nGNAMES \\nONAMES \\nPNAMES \\nQNAMES \\nTNAMES \\nUNAMES \\nZNAMES\\n" "${0##*/}" 
+	printf "Available options for %s are: \\nCNAMES \\nENAMES \\nGNAMES \\nONAMES \\nPNAMES \\nQNAMES \\nTNAMES \\nUNAMES \\nZNAMES\\n" "${0##*/}" 
 	exit 14
 }
 
