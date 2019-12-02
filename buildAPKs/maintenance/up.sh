@@ -2,6 +2,8 @@
 # Copyright 2019 (c) all rights reserved by S D Rausty;  See LICENSE  
 # https://sdrausty.github.io hosted courtesy https://pages.github.com
 # Updates ~/buildAPKs and submodules to the newest available version.
+# Use cat ~/buildAPKs/.gitmodules to see the installed submodules.
+# ~/buildAPKs/build.buildAPKs.modules.bash installs submodules.
 #####################################################################
 set -eu 
 RDR="$HOME/buildAPKs" # define root directory
@@ -16,7 +18,7 @@ sleep 0.$(shuf -i 24-72 -n 1)	# intensify latency support on fast networks;  ` g
 
 git submodule update --init --recursive --remote scripts/bash/shlibs	# ` git submodule help ` and https://git-scm.com/book/en/v2/Git-Tools-Submodules have more information.  The source code for this book is hosted at https://github.com/progit/progit2
 
-sleep 0.$(shuf -i 24-72 -n 1) # increase latency support on fast networks;  See ` grep -hC 4 -r sleep ~/buildAPKs/scripts ` for complementary latency applications of ` sleep ` when BuildAPKs is setup.  You can use https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/init/setup.buildAPKs.bash to set ~/buildAPKs up on device with ` curl -OL https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/init/setup.buildAPKs.bash ; bash setup.buildAPKs.bash `.
+sleep 0.$(shuf -i 24-72 -n 1) # increase latency support on fast networks;  See ` grep -hC 4 -r sleep ~/buildAPKs/scripts ` for complementary latency applications of ` sleep ` when BuildAPKs is setup.  You can use https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/init/setup.buildAPKs.bash to set ~/buildAPKs up on device with ` curl -OL https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/init/setup.buildAPKs.bash ; bash setup.buildAPKs.bash `.  It appears that a little sleep can go a long way in reducing network collisions.
 
 git submodule update --init --recursive --remote scripts/sh/shlibs	# ` git submodule help ` and https://git-scm.com/book/en/v2/Git-Tools-Submodules have more information.
 # up.sh EOF
