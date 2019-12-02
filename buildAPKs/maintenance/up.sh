@@ -13,7 +13,7 @@ git pull	# run ` git pull ` to update the local copy of remote git repository ht
 
 rm -f scripts/bash/shlibs/.git scripts/sh/shlibs/.git	# remove automatically generated submodule .git files which were created through the process of cloning and updating git repositories as submodules.
 
-sleep 0.$(shuf -i 24-72 -n 1)	# enhance network latency support on fast networks;  ` grep -hC 4 -r sleep ~/buildAPKs/scripts ` shows additional latency usage of ` sleep ` in BuildAPKs once BuildAPKs is installed.  Commands like this script, and ` build.github.bash ` can send many requests.  This can lead to network packet collisions on a fast device that is connected to a fast network.  Which in turn causes excessive network latency.
+sleep 0.$(shuf -i 24-72 -n 1)	# enhance network latency support on fast networks;  ` grep -hC 4 -r sleep ~/buildAPKs/scripts ` shows additional latency usage of ` sleep ` in BuildAPKs once BuildAPKs is installed.  Commands like this script, and ` build.github.bash ` can send many requests.  This can lead to network packet collisions on a fast device that is connected to a fast network, which in turn causes excessive network latency.
 
 git submodule update --init --recursive --remote scripts/bash/shlibs	# The command ` git submodule help ` and the book https://git-scm.com/book/en/v2/Git-Tools-Submodules have more information about git submodules.
 
