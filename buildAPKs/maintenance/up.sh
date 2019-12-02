@@ -1,6 +1,6 @@
 #!/bin/env sh
 # Copyright 2019 (c) all rights reserved by S D Rausty;  See LICENSE  
-# ` up.sh ` updates core submodules to the newest version.
+# Use this script to update buildAPKs and the core submodules.
 # ` cat ~/buildAPKs/.gitmodules ` will show installed submodules.
 # ~/buildAPKs/build.buildAPKs.modules.bash installs all submodules.
 #####################################################################
