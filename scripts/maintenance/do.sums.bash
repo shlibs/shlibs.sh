@@ -28,7 +28,7 @@ do
 	$SCHECK -c ${SCHECK::-3}.sum
 done
 git add .
-SN="$(sn.sh)"
+SN="$(sn.sh)" # sn.sh is found in https://github.com/BuildAPKs/maintenance.BuildAPKs/blob/master/sn.sh
 git commit -m "$SN"
 git push
 ls
