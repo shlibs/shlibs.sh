@@ -6,7 +6,7 @@
 # To check the files use; sha512sum -c sha512.sum
 #####################################################################
 set -eu
-MTIME="$(ls -l --time-style=+"%s" .git/ORIG_HEAD | awk '{print $6}')"
+MTIME="$(ls -l --time-style=+"%s" .git/ORIG_HEAD 2>/dev/null | awk '{print $6}')"
 TIME="$(date +%s)"
 ([ ! -z "${num##*[!0-9]*}" ] && (if [[ $(($TIME - $MTIME)) -gt 43200 ]] ; then git pull; fi) || git pull) || (printf "%s\\n" "Signal generated at [ ! -z \${num##*[!0-9]*} ]" && git pull)
 ./scripts/maintenance/vgen.sh
