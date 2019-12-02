@@ -19,7 +19,7 @@ sleep 0.$(shuf -i 24-72 -n 1)	# enhance network latency support on fast networks
 
 git submodule update --init --recursive --remote scripts/bash/shlibs	# The command ` git submodule help ` and the book https://git-scm.com/book/en/v2/Git-Tools-Submodules have more information about git submodules.
 
-sleep 0.$(shuf -i 24-72 -n 1) # increase network latency support on fast networks;  See ` grep -hC 4 -r sleep ~/buildAPKs/scripts ` for complementary latency applications of ` sleep ` when BuildAPKs is installed.  You can use https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/init/setup.buildAPKs.bash to set ~/buildAPKs up on device with ` curl -OL https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/scripts/bash/init/setup.buildAPKs.bash ; bash setup.buildAPKs.bash `.  It appears that a little sleep can go a long way in reducing network collisions on fast networks.
+sleep 0.$(shuf -i 24-72 -n 1) # increase network latency support on fast networks;  See ` grep -hC 4 -r sleep ~/buildAPKs/scripts ` for complementary latency applications of ` sleep ` when BuildAPKs is installed.  You can use https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash to set ~/buildAPKs up on device with ` curl -OL https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash ; bash setup.buildAPKs.bash `.  It appears that a little sleep can go a long way in reducing network collisions on fast networks.
 
 git submodule update --init --recursive --remote scripts/sh/shlibs	# The command ` git submodule help ` and the book https://git-scm.com/book/en/v2/Git-Tools-Submodules have more information.
 # up.sh EOF
