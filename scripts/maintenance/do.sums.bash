@@ -24,7 +24,7 @@ done
 chmod 400 ${SCHECK::-3}.sum 
 for SCHECK in  ${CHECKLIST[@]}
 do
-	printf "\\n%s\\n" "Checking $SCHECK..."
+	printf "%s\\n" "Checking $SCHECK..."
 	$SCHECK -c ${SCHECK::-3}.sum
 done
 git add .
