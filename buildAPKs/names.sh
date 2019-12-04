@@ -16,7 +16,7 @@ _ANAMESDB_ () { # add NAMES if NAMES is not found in NAMES.db
 _DOBNAMES_ () {
 	if [ -z "${NAMESFL##*B*NAMES*}" ] 
 	then 
-		printf "%s %s\\n" "$USENAME $DS $BT $NAMFS $NAPKS" "${0##*/}"
+		: # printf "%s %s\\n" "$USENAME $DS $BT $NAMFS $NAPKS" "${0##*/}"
 # 		if ! grep -iw "$USENAME\ $DS\ $BT\ $NAMFS\ $NAPKS" "$RDR/var/db/$NAMES" 1>/dev/null # USENAME, DS, BT, NAMFS and NAPKS is not found in NAMES file 
 # 		then # add USENAME, DS, BT, NAMFS and NAPKS to NAMES file
 # 			printf "%s %s\\n" "$USENAME $DS $BT $NAMFS $NAPKS"
