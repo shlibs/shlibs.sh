@@ -27,7 +27,7 @@ _DOBNAMES_ () {
 }
 
 _CATNAMES_ () {
-	$(cat "$JDR/var/conf/NAPKS.db") || printf "%s\\n" "signal received _CATNAMES_ ${0##*/} names.sh"
+	cat "$JDR/var/conf/NAPKS.db" || printf "%s\\n" "signal received _CATNAMES_ ${0##*/} names.sh"
 }
 
 _NAMESMAINBLOCK_ () { # create *NAMES* file list and process $USENAME  
