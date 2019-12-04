@@ -26,6 +26,10 @@ _DOBNAMES_ () {
 	fi
 }
 
+_CATNAMES_ () {
+	$(cat "$JDR/var/conf/NAPKS.db") || printf "%s\\n" "signal received _CATNAMES_ ${0##*/} names.sh"
+}
+
 _NAMESMAINBLOCK_ () { # create *NAMES* file list and process $USENAME  
 	if [[ ! -f "$JDR/var/conf/NAMES.db" ]]
 	then
@@ -51,6 +55,7 @@ _NAMESMAINBLOCK_ () { # create *NAMES* file list and process $USENAME
 		  	_NAMES_
 		done
 	fi
+	_CATNAMES_ 
 }
 
 _NAMES_ () { # check if USENAME is found in NAMES file, and add USENAME to file if not found
