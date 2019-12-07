@@ -1,8 +1,8 @@
 #!/bin/env sh
 # Copyright 2019 (c) all rights reserved by S D Rausty; see LICENSE  
 # https://sdrausty.github.io hosted courtesy https://pages.github.com
-# Ref: https://github.com/termux/termux-packages/issues?q=BOOTCLASSPATH
-# Ref2: https://github.com/termux/termux-app/issues?q=BOOTCLASSPATH
+# R: https://github.com/termux/termux-packages/issues?q=BOOTCLASSPATH
+# Refer2: https://github.com/termux/termux-app/issues?q=BOOTCLASSPATH
 # Export to shell usage: ` . bootclasspath.sh ` # the dot is required
 #####################################################################
 set -eu
