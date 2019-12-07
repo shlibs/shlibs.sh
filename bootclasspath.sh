@@ -7,8 +7,7 @@
 #####################################################################
 set -eu
 BOOTCLASSPATH=""
-[ -d /system ] && DIRLIST="$(find -L /system -type f -iname "*.jar" 2>/dev/null)" || printf "%s" "Signal system DIRLIST ${0##*/} bootclasspath.sh generated.  "
-# [ -d /vendor ] && DIRLIST="$DIRLIST $(find /vendor -type f -iname "*.jar")" || printf "%s" "Signal vendor DIRLIST ${0##*/} bootclasspath.sh generated.  "
+[ -d /system ] && DIRLIST="$(find -L /system -type f -iname "*.jar" -or -iname "*.apk" 2>/dev/null)" || printf "%s" "Signal system DIRLIST ${0##*/} bootclasspath.sh generated.  "
 for LIB in $DIRLIST
 do
 	BOOTCLASSPATH=${LIB}:${BOOTCLASSPATH};
