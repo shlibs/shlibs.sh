@@ -7,8 +7,8 @@
 #####################################################################
 set -eu
 BOOTCLASSPATH=""
-[ -d /system ] && DIRLIST="$(find /system -type f -iname "*.jar")"
-[ -d /vendor ] && DIRLIST="$DIRLIST $(find /vendor -type f -iname "*.jar")"
+[ -d /system ] && DIRLIST="$(find /system -type f -iname "*.jar")" ||:
+[ -d /vendor ] && DIRLIST="$DIRLIST $(find /vendor -type f -iname "*.jar")" ||:
 for LIB in $DIRLIST
 do
 	BOOTCLASSPATH=${LIB}:${BOOTCLASSPATH};
