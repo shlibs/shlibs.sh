@@ -3,7 +3,7 @@
 # https://sdrausty.github.io hosted courtesy https://pages.github.com
 # Ref: https://github.com/termux/termux-packages/issues?q=BOOTCLASSPATH
 # Ref2: https://github.com/termux/termux-app/issues?q=BOOTCLASSPATH
-# Export to shell usage: ` . bootclasspath.sh `
+# Export to shell usage: ` . bootclasspath.sh ` # the dot is required
 #####################################################################
 set -eu
 BOOTCLASSPATH=""
