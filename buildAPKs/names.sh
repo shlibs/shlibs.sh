@@ -74,13 +74,25 @@ _NAMESLOG_ () { # check if USENAME is found in NAMES file, and adds USENAME, DS 
 			else
 				NAMFS=0
 			fi
+			if [[ -f "$JDR/var/conf/NAMKS.db" ]]
+			then
+				NAMKS="$(awk 1 ORS=' ' $JDR/var/conf/NAMKS.db)" # names of AndroidManifest.xml files found
+			else
+				NAMKS=""
+			fi
+			if [[ -f "$JDR/var/conf/NAPKS.db" ]]
+			then
+				NAPKS="$(cat $JDR/var/conf/NAPKS.db)" # number of APKs built
+			else
+				NAPKS=0
+			fi
 			if [ -z "${NAMESFL##*GNAMES*}" ] 
 			then 
 				printf "%s" "Adding $USENAME $NAPKS to ~/${RDR##*/}/var/db/$NAMES: "
 				printf "%s %s\\n" "$USENAME $NAPKS" >> "$RDR/var/db/$NAMES" 
 			else
-				printf "%s" "Adding $USENAME $DS $BT $NAMFS $NAPKS to ~/${RDR##*/}/var/db/$NAMES: "
-				printf "%s %s\\n" "$USENAME $DS $BT $NAMFS $NAPKS" >> "$RDR/var/db/$NAMES" 
+				printf "%s" "Adding $USENAME $DS $BT $NAMFS $NAPKS $NAMKS to ~/${RDR##*/}/var/db/$NAMES: "
+				printf "%s %s\\n" "$USENAME $DS $BT $NAMFS $NAPKS $NAMKS " >> "$RDR/var/db/$NAMES" 
 			fi
 		else # printf message if USENAME is found in NAMES file
 			printf "%s" "NOT adding $USENAME to ~/${RDR##*/}/var/db/$NAMES: $USENAME is already in file $NAMES: "
