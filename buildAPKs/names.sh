@@ -9,7 +9,7 @@ _ANAMESDB_ () { # add NAMES if NAMES is not found in NAMES.db
 	if ! grep -iw "$NAMES" "$JDR/var/conf/NAMES.db" 1>/dev/null
 	then 
 		printf "%s" "Adding $NAMES to $JDR/var/conf/NAMES.db  "
-		printf "%s\\n" "$NAMES" >> "$JDR/var/conf/NAMES.db  " 
+		printf "%s\\n" "$NAMES" >> "$JDR/var/conf/NAMES.db" 
 	fi
 }
 
