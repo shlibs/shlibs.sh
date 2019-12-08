@@ -5,7 +5,6 @@
 # R2 https://github.com/termux/termux-packages/search?q=BOOTCLASSPATH
 # Export to shell usage: ` . bootclasspath.sh ` # the dot is required
 #####################################################################
-set -eu
 BOOTCLASSPATH=""
 [ -d /system ] && DIRLIST="$(find -L /system -type f -iname "*.jar" -or -iname "*.apk" 2>/dev/null)" || printf "%s" "Signal system DIRLIST ${0##*/} bootclasspath.sh generated.  "
 for LIB in $DIRLIST
