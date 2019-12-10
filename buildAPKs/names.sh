@@ -83,8 +83,6 @@ _NAMESLOG_ () { # check if USENAME is found in NAMES file, and adds USENAME, DS 
 			if [[ -f "$JDR/var/conf/NAPKS.db" ]]
 			then
 				NAPKS="$(cat $JDR/var/conf/NAPKS.db)" # number of APKs built
-			else
-				NAPKS=0
 			fi
 			if [ -z "${NAMESFL##*GNAMES*}" ] 
 			then 
