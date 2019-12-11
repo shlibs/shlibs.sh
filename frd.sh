@@ -5,7 +5,7 @@ h=$(ls)
 for i in $h
 do
 	cd $i && find . -maxdepth 1 -type d -exec rm -rf {} \;
-	echo $PWD
+	printf "%s\\n" "${PWD##*/}"
 	cd $g
 done
 # frd.sh EOF
