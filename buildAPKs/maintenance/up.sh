@@ -1,8 +1,6 @@
 #!/bin/env sh
-# Copyright 2019 (c) all rights reserved by S D Rausty;  See LICENSE  
-# Use this script to update buildAPKs and the core submodules.
-# ` cat ~/buildAPKs/.gitmodules ` will show installed submodules.
-# ~/buildAPKs/build.buildAPKs.modules.bash installs all submodules.
+# Copyright 2019 (c)  all rights reserved by S D Rausty;  See LICENSE  
+# Updates https://github.com/BuildAPKs/buildAPKs and core submodules.
 #####################################################################
 set -eu 
 RDR="$HOME/buildAPKs" # define root directory.
