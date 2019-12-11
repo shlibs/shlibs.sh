@@ -8,4 +8,4 @@ do
 	printf "%s\\n" "${PWD##*/}"
 	cd $g
 done
-# frd.sh EOF
+# f1rd.sh EOF
