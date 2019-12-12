@@ -16,19 +16,19 @@ _MAINDCTAR_ () {
 		else
 			_PRINTCPF_ 
 		fi
-	elif [ $1 = ls ] # finds tarballs with ls; depth 1
+	elif [ $1 = ls ] # finds and removes corrupt tarballs with ls; depth 1
 	then
 		LTYPE="$(ls *.tar.gz)" || _PRINTCPF_ 
 		_PTGS_
-	elif [ $1 = lsf ] # finds tarballs with ls; depth 2
+	elif [ $1 = lsf ] # finds and removes corrupt tarballs with ls; depth 2
 	then
 		LTYPE="$(ls -d -1 ./**/*.tar.gz)" || _PRINTCPF_ 
 		_PTGS_
-	elif [ $1 = find ] # finds tarballs with find; depth unlimited
+	elif [ $1 = find ] # finds and removes corrupt tarballs with find; depth unlimited
 	then
 		LTYPE="$(find . -type f -name "*.tar.gz")" || _PRINTCPF_ 
 		_PTGS_
-	elif [ $1 = find2 ] # finds tarballs with find; depth 2
+	elif [ $1 = find2 ] # finds and removes corrupt tarballs with find; depth 2
 	then
 		LTYPE="$(find . -maxdepth 2 -type f -name "*.tar.gz")" || _PRINTCPF_ 
 		_PTGS_
@@ -48,9 +48,9 @@ _PRINTDONE_ () {
 }
 
 _PRINTHDCT_ () {
-	printf "%s\\n%s\\n" "Options for ${0##*/} are:" "0	see \` cat $0 \` for more information"
-	grep -w "elif \[" "$0" | awk '{print $5"	"$8" "$9" "$10" "$11" "$12" "$13}'
-	printf "%s\\n" "${0##*/} must be run with an option!"
+	printf "%s\\n%s\\n" "Options for \` ${0##*/} \` are:" "0	see \` cat $0 \` for more information"
+	grep -w "elif \[" "$0" | awk '{print $5"	"$8" "$9" "$10" "$11" "$12" "$13" "$14" "$15" "$16}'
+	printf "%s\\n" "\` ${0##*/} \` should be run with an option as \` ${0##*/} \` removes *.tar.gz files as requested through options."
 }
 
 _PRINTPTF_ () {
@@ -75,10 +75,5 @@ _PTG_ () { # process a *.tar.gz file for errors
 	fi
 }
 
-if [ -z "${1:-}" ]
-then
-	_PRINTHDCT_ 
-else
-	_MAINDCTAR_ "$@" 
-fi
+[ -z "${1:-}" ] && _PRINTHDCT_ || _MAINDCTAR_ "$@" 
 # dctar.sh EOF
