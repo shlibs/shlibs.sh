@@ -57,6 +57,7 @@ _NAMES_ () { # check if USENAME is found in NAMES file, and add USENAME to file 
 }
 
 _NAMESLOG_ () { # check if USENAME is found in NAMES file, and adds USENAME, DS (download size), BT (build time), NAMFS (number of AndroidManifest.xml files) and NAPKS (number of APK files) to NAMES file if not found
+	TDATE="$(date +%Y%m%d)"
 	if ! grep -iw "$NAMES" "$JDR/var/conf/NAMES.db" 1>/dev/null # NAMES is not found in NAMES.db
 	then # add USENAME, DS, BT, NAMFS and NAPKS to NAMES file
 		_PRINTPRN_ 
@@ -89,8 +90,8 @@ _NAMESLOG_ () { # check if USENAME is found in NAMES file, and adds USENAME, DS 
 				printf "%s" "Adding $USENAME $NAPKS to ~/${RDR##*/}/var/db/$NAMES: "
 				printf "%s %s\\n" "$USENAME $NAPKS" >> "$RDR/var/db/$NAMES" 
 			else
-				printf "%s" "Adding $USENAME $DS $BT $NAMFS $NAPKS $NAMKS to ~/${RDR##*/}/var/db/$NAMES: "
-				printf "%s %s\\n" "$USENAME $DS $BT $NAMFS $NAPKS $NAMKS " >> "$RDR/var/db/$NAMES" 
+				printf "%s" "Adding $USENAME $TDATE $DS $BT $NAMFS $NAPKS $NAMKS to ~/${RDR##*/}/var/db/$NAMES: "
+				printf "%s %s\\n" "$USENAME $TDATE $DS $BT $NAMFS $NAPKS $NAMKS " >> "$RDR/var/db/$NAMES" 
 			fi
 		else # printf message if USENAME is found in NAMES file
 			printf "%s" "NOT adding $USENAME to ~/${RDR##*/}/var/db/$NAMES: $USENAME is already in file $NAMES: "
