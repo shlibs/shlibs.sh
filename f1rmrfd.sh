@@ -19,4 +19,4 @@ _PRINTHDCT_ () {
 }
 
 [ -z "${1:-}" ] && _PRINTHDCT_ || _MAINDCTAR_ "$@" 
-# f1rf.sh EOF
+# f1rmrfd.sh EOF
