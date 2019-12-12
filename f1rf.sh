@@ -1,13 +1,13 @@
 #!/bin/env sh
 set -eu
 _MAINDCTAR_ () {
-	g=$PWD
+	O1DIR=$PWD
 	h=$(ls)
-	for i in $h
+	for RMRFDIR1 in $h
 	do
-		cd $i && find . -maxdepth 1 -type d -exec rm -rf {} \;
+		cd $RMRFDIR1 && find . -maxdepth 1 -type d -exec rm -rf {} \;
 		printf "%s\\n" "${PWD##*/}"
-		cd $g
+		cd $O1DIR
 	done
 }
 
