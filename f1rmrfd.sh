@@ -19,7 +19,7 @@ _PRINTHDCT_ () {
 	printf "%s\\n" "See \` cat $0 \` for more information as \` ${0##*/} \` removes directories as requested with the following command:"
 	grep -w find "$0" | head -1 
 	grep -w "elif \[" "$0" | awk '{print $5"	"$8" "$9" "$10" "$11" "$12" "$13}'
-	printf "%s\\n" "\` ${0##*/} \` should be run with an option as \` ${0##*/} \` removes directories.  The \` ${0##*/} \` command can be a  usefull in ~/buildAPKs/sources/github/{users,orgs}/\$JDR when resetting the ~/buildAPKs/sources/github/{users,orgs}/\$JDR directories from downloaded source code."
+	printf "%s\\n" "\` ${0##*/} \` should be run with an option as \` ${0##*/} \` removes directories.  The \` ${0##*/} \` command can be useful in ~/buildAPKs/sources/github/{users,orgs}/\$JDR when resetting the ~/buildAPKs/sources/github/{users,orgs}/\$JDR directories."
 }
 
 [ -z "${1:-}" ] && _PRINTHDCT_ || _MAINDCTAR_ "$@" 
