@@ -1,4 +1,8 @@
 #!/bin/env sh
+# Copyright 2019 (c)  all rights reserved by S D Rausty;  see LICENSE  
+# https://sdrausty.github.io hosted courtesy https://pages.github.com
+# This file:  ` f1rmrfd.sh `  deletes directories at find -maxdepth 1 
+#####################################################################
 set -eu
 _MAINDCTAR_ () {
 	O1DIR=$PWD
