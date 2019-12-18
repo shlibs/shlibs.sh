@@ -7,7 +7,7 @@ set -eu
 
 _MAINDCTAR_ () {
 	_PRINTPTF_ 
-	if [ $1 = 0 ] # the first agrurment equals 0
+	if [ "$1" = 0 ] # the first agrurment equals 0
 	then	# process
 		if [ "${PWD##*/}" = tarballs ]
 		then
@@ -16,24 +16,24 @@ _MAINDCTAR_ () {
 		else
 			_PRINTCPF_ 
 		fi
-	elif [ $1 = ls ] # finds and removes corrupt tarballs with ls; depth 1
+	elif [ "$1" = ls ] # finds and removes corrupt tarballs with ls; depth 1
 	then
 		LTYPE="$(ls *.tar.gz)" || _PRINTCPF_ 
 		_PTGS_
-	elif [ $1 = lsf ] # finds and removes corrupt tarballs with ls; depth 2
+	elif [ "$1" = lsf ] # finds and removes corrupt tarballs with ls; depth 2
 	then
 		LTYPE="$(ls -d -1 ./**/*.tar.gz)" || _PRINTCPF_ 
 		_PTGS_
-	elif [ $1 = find ] # finds and removes corrupt tarballs with find; depth unlimited
+	elif [ "$1" = find ] # finds and removes corrupt tarballs with find; depth unlimited
 	then
 		LTYPE="$(find . -type f -name "*.tar.gz")" || _PRINTCPF_ 
 		_PTGS_
-	elif [ $1 = find2 ] # finds and removes corrupt tarballs with find; depth 2
+	elif [ "$1" = find2 ] # finds and removes corrupt tarballs with find; depth 2
 	then
 		LTYPE="$(find . -maxdepth 2 -type f -name "*.tar.gz")" || _PRINTCPF_ 
 		_PTGS_
 	else
-		_PTG_ $1
+		_PTG_ "$1"
 	fi
 	_PRINTDONE_ 
 }
