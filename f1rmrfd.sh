@@ -4,7 +4,7 @@
 # This file:  ` f1rmrfd.sh `  deletes directories at find -maxdepth 1 
 #####################################################################
 set -eu
-_MAINDCTAR_ () {
+_F1RMRFMAIN_ () {
 	O1DIR=$PWD
 	FDIRL=$(ls --color=never)
 	for RMRFDIR1 in $FDIRL
@@ -21,5 +21,5 @@ _PRINTHDCT_ () {
 	printf "%s\\n" "\` ${0##*/} \` should be run with an option as \` ${0##*/} \` removes directories.  The \` ${0##*/} \` command can be useful in ~/buildAPKs/sources/github/{users,orgs}/\$JDR when resetting the ~/buildAPKs/sources/github/{users,orgs}/\$JDR directories."
 }
 
-[ -z "${1:-}" ] && _PRINTHDCT_ || _MAINDCTAR_ "$@" 
+[ -z "${1:-}" ] && _PRINTHDCT_ || _F1RMRFMAIN_ "$@" 
 # f1rmrfd.sh EOF
