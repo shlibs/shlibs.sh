@@ -13,7 +13,7 @@ _F1RMRFMAIN_ () {
 }
 
 _PRINTHDCT_ () {
-	printf "%s\\n" "See \` cat $0 \` for more information as \` ${0##*/} \` removes directories as requested!  "
+	printf "%s\\n\\n" "See \` cat $0 \` for more information as \` ${0##*/} \` removes directories as requested!  "
 	printf "%s\\n" "\` ${0##*/} \` should be run with an option as \` ${0##*/} \` removes directories.  The \` ${0##*/} \` command can be useful in ~/buildAPKs/sources/github/{users,orgs}/\$JDR when resetting the ~/buildAPKs/sources/github/{users,orgs}/\$JDR directories."
 }
 
