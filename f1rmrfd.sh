@@ -5,13 +5,10 @@
 #####################################################################
 set -eu
 _F1RMRFMAIN_ () {
-	O1DIR=$PWD
 	FDIRL=$(ls --color=never)
 	for RMRFDIR1 in $FDIRL
 	do
 		find "$RMRFDIR1" -maxdepth 1 -type d -exec rm -rf {} \; ||:
-		printf "%s\\n" "${PWD##*/}"
-		cd "$O1DIR"
 	done
 }
 
