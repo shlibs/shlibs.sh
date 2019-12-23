@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/usr/bin/env sh
 # Copyright 2019 (c) all rights reserved by S D Rausty;  see  LICENSE  
 # https://sdrausty.github.io hosted courtesy https://pages.github.com
 # R1	 https://github.com/termux/termux-app/search?&q=BOOTCLASSPATH
