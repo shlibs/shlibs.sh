@@ -5,6 +5,22 @@
 #####################################################################
 set -eu
 
+_MKRDIRS_ () { # create list from arguements
+	ARGS="$@"
+	NAMESFL=""
+	for ARG in $ARGS
+	do
+		NAMESFL="$NAMESFL $ARG"
+	done
+	for DIR in $NAMESFL
+	do
+		if [ ! -d  "$RDR/$DIR" ] # DIR does not exist in ~/RDR/var/
+		then # create directory DIR in ~/RDR/var/
+			mkdir -p "$RDR/$DIR" 
+		fi
+	done
+}
+
 _MKDIRS_ () { # create list from arguements
 	ARGS="$@"
 	NAMESFL=""
