@@ -44,7 +44,7 @@ _NAMES_ () { # check if USENAME is found in NAMES file, and add USENAME to file 
 	if ! grep -iw "$NAMES" "$JDR/var/conf/NAMES.db" 1>/dev/null # USENAME is not found in NAMES.db file
 	then # add USENAME to NAMES if not already added
 		_PRINTPRN_ 
-		if ! grep -w "^$USENAME" "$RDR/var/db/$NAMES" 1>/dev/null # USENAME is not found in NAMES file
+		if ! grep -iE "(^|[^-])\b^$USENAME\b($|[^-])" "$RDR/var/db/$NAMES" 1>/dev/null # USENAME is not found in NAMES file
 		then # add USENAME to NAMES file
 			printf "%s" "Adding $USENAME to ~/${RDR##*/}/var/db/$NAMES: "
 			printf "%s\\n" "$USENAME" >> "$RDR/var/db/$NAMES" 
@@ -61,7 +61,7 @@ _NAMESLOG_ () { # check if USENAME is found in NAMES file, and adds USENAME, DS 
 	if ! grep -iw "$NAMES" "$JDR/var/conf/NAMES.db" 1>/dev/null # NAMES is not found in NAMES.db
 	then # add USENAME, DS, BT, NAMFS and NAPKS to NAMES file
 		_PRINTPRN_ 
-		if ! grep -w "^$USENAME" "$RDR/var/db/$NAMES" 1>/dev/null # USENAME is not found in NAMES file 
+		if ! grep -iE "(^|[^-])\b^$USENAME\b($|[^-])" "$RDR/var/db/$NAMES" 1>/dev/null # USENAME is not found in NAMES file
 		then # add USENAME, DS, BT, NAMFS and NAPKS to NAMES file
 			BT="$(( $(date +%s)-$ST ))" # calculate build time
 			DS=0
