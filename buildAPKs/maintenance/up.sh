@@ -3,10 +3,8 @@
 # Copyright 2019 (c)  all rights reserved by S D Rausty;  See LICENSE  
 #####################################################################
 set -eu 
-RDR="$(awk 'NR==1' "$RDR/.conf/RDR")"	# define root directory.
-
+RDR="$HOME/buildAPKs"	# define root directory.
 cd "$RDR"	# change directory to root directory.
-
 git pull	# run ` git pull ` to update the local copy of remote git repository https://github.com/BuildAPKs/buildAPKs to the newest version on device. 
 
 sleep 0.$(shuf -i 24-72 -n 1)	# add device latency support;  Commands like this script can request many read write operations.  This command causes the script to wait for a short pseudo random period of time.  This can ease excessive device latency when running these build scripts.
