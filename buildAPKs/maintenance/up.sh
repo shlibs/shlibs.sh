@@ -21,11 +21,10 @@ git submodule update --init --recursive --remote opt/db || _PESTRG_ # The comman
 
 sleep 0.$(shuf -i 24-72 -n 1) # enhance network latency support on fast networks;  ` grep -hC 4 -r sleep ~/buildAPKs/scripts ` shows additional latency usage of ` sleep ` in BuildAPKs once BuildAPKs is installed.  Commands like this script, and ` build.github.bash ` can send many requests.  This can lead to network packet collisions on a fast device that is connected to a fast network, which in turn causes excessive network latency.
 
-git submodule update --init --recursive --remote scripts/bash/github || printf "%s\\n" "$ESTRING" # The command ` git submodule help ` and the book https://git-scm.com/book/en/v2/Git-Tools-Submodules have more information.
-
+git submodule update --init --recursive --remote scripts/bash/github || _PESTRG_ 
 sleep 0.$(shuf -i 24-72 -n 1) # increase network latency support on fast networks;  See ` grep -hC 4 -r sleep ~/buildAPKs/scripts ` for complementary latency applications of ` sleep ` when BuildAPKs is installed.  You can use https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash to set ~/buildAPKs up on device with ` curl -OL https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash ; bash setup.buildAPKs.bash `.  It appears that a little sleep can go a long way in reducing network collisions on fast networks.
 
-git submodule update --init --recursive --remote scripts/bash/shlibs || printf "%s\\n" "$ESTRING"
+git submodule update --init --recursive --remote scripts/bash/shlibs || _PESTRG_
 sleep 0.$(shuf -i 24-72 -n 1)
-git submodule update --init --recursive --remote scripts/sh/shlibs || printf "%s\\n" "$ESTRING"
+git submodule update --init --recursive --remote scripts/sh/shlibs || _PESTRG_
 # up.sh EOF
