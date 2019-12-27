@@ -6,7 +6,7 @@
 # Export to shell usage: ` . bootclasspath.sh ` # the dot is required
 #####################################################################
 BOOTCLASSPATH=""
-[ -d /system ] && DIRLIST="$(find -L /system -type f -iname "*.jar" -or -iname "*.apk" 2>/dev/null)" || printf "%s" "Signal system DIRLIST ${0##*/} bootclasspath.sh generated.  "
+[ -d /system ] && DIRLIST="$(find -L /system -type f -iname "*.jar" -or -iname "*.apk" -or -iname "*.*ex" 2>/dev/null)" || printf "%s" "Signal system DIRLIST ${0##*/} bootclasspath.sh generated.  "
 for LIB in $DIRLIST
 do
 	BOOTCLASSPATH=$LIB:$BOOTCLASSPATH;
