@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 # Copyright 2019-2020 (c) all rights reserved by BuildAPKs, see LICENSE  
 # https://shlibs.github.io/shlibs.sh published courtesy https://pages.github.com
-# Updates BuildAPKs and core submodules to the newsest version.
+# Updates the BuildAPKs git repository and git submodules to the newest version.
 ################################################################################
 set -eu 
 
