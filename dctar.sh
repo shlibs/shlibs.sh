@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
-# Copyright 2019-2020 (c)  all rights reserved by S D Rausty;  see LICENSE  
+# Copyright 2019-2020 (c) all rights reserved by S D Rausty, see LICENSE  
 # https://sdrausty.github.io hosted courtesy https://pages.github.com
-# deletes corrupt *.tar.gz files 
-#####################################################################
+# File ` dctar.sh ` deletes corrupt *.tar.gz files.
+################################################################################
 set -eu
 
 _MAINDCTAR_ () {
@@ -39,7 +39,7 @@ _MAINDCTAR_ () {
 	else
 		_PTG_ "$1"
 	fi
-	_PRINTDONE_ 
+	_PRINTMDONE_ 
 }
 
 _PRINTCPF_ () {
@@ -48,6 +48,10 @@ _PRINTCPF_ () {
 
 _PRINTDONE_ () {
 	printf "DONE\\n"
+}
+
+_PRINTMDONE_ () {
+	printf "%s\\n" "Processing *.tar.gz files: DONE"
 	printf "\033]2;%sDONE\007" "Processing *.tar.gz files: "
 }
 
@@ -63,7 +67,7 @@ _PRINTPTF_ () {
 	printf "\033]2;%sOK\007" "Processing *.tar.gz files: "
 }
 
-_PTGS_ () { # process *.tar.gz files for errors
+_PTGS_ () { # process and remove *.tar.gz files with errors
 	for FNAME in $LTYPE
 	do 
 		printf "%s" "Processing file $FNAME: "
@@ -75,7 +79,7 @@ _PTGS_ () { # process *.tar.gz files for errors
 	done
 }
 
-_PTG_ () { # process a *.tar.gz file for errors
+_PTG_ () { # process and remove a *.tar.gz file with errors
 	if ! tar tf "$1" 1>/dev/null 
 	then 
 		rm -f "$1" 

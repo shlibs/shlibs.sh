@@ -1,9 +1,9 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 # Copyright 2019-2020 (c) all rights reserved by S D Rausty; see LICENSE  
 # https://sdrausty.github.io hosted courtesy https://pages.github.com
-# To create checksum files and commit use; do.sums.bash
-# To see file tree use; awk '{print $2}' sha512.sum
-# To check the files use; sha512sum -c sha512.sum
+# The file ` do.sums.bash ` creates a checksum file and excecutes a commit. 
+# To see the file tree you can use the ` awk '{print $2}' sha512.sum ` command. 
+# To check the files you can use the ` sha512sum -c sha512.sum ` command. 
 #####################################################################
 set -eu
 TIME="$(date +%s)"
