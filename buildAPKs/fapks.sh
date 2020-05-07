@@ -1,4 +1,4 @@
-#!/usr//bin/env sh
+#!/usr/bin/env sh
 # Copyright 2019-2020 (c)  all rights reserved by S D Rausty;  see LICENSE  
 # https://sdrausty.github.io hosted courtesy https://pages.github.com
 # adds logins to $RDR/var/db/BNAMES file if APKs were built
