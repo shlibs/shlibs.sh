@@ -59,7 +59,7 @@ _PRT_ () {	# print message with no trialing newline
 _PRNT_ "Script ${0##*/} up.sh: STARTED..."
 WSTRING="Warning ${0##*/} up.sh; Continuing...  "	# define WSTRING warning message
 RDR="$HOME/buildAPKs"		# define root directory
-SIAD="https://github.com"	# define site address
+SIAD="git://github.com"	# define site address
 SIADS="$SIAD/BuildAPKs"		# define login
 cd "$RDR"	# change directory to root directory
 git pull	# update the local git repository to the newest version
