@@ -7,8 +7,8 @@
 #####################################################################
 set -eu
 TIME="$(date +%s)"
-[ ! -f .git/ORIG_HEAD ] && git pull && MTIME="$TIME" || MTIME="$(ls -l --time-style=+"%s" .git/ORIG_HEAD | awk '{print $6}')"
-(if [[ $(($TIME - $MTIME)) -gt 43200 ]]; then git pull; fi) || git pull
+[ ! -f .git/ORIG_HEAD ] && git pull --ff-only && MTIME="$TIME" || MTIME="$(ls -l --time-style=+"%s" .git/ORIG_HEAD | awk '{print $6}')"
+(if [[ $(($TIME - $MTIME)) -gt 43200 ]]; then git pull --ff-only; fi) || git pull --ff-only
 .scripts/maintenance/vgen.sh
 rm -f *.sum
 FILELIST=( $(find . -type f | grep -v .git | sort) )
