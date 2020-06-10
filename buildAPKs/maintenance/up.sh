@@ -62,7 +62,7 @@ RDR="$HOME/buildAPKs"		# define root directory
 SIAD="git://github.com"	# define site address
 SIADS="$SIAD/BuildAPKs"		# define login
 cd "$RDR"	# change directory to root directory
-git pull	# update the local git repository to the newest version
+git pull --ff-only	# update local git repository to the newest version
 _CSLIST_ || _PESTRG_	# run either functions _CSLIST_ or _PESTRG_
 sleep 0."$(shuf -i 24-72 -n 1)"	# add device and network latency support;  Commands like this script can request many read write operations.  The sleep plus shuf commands cause this script to wait for a short pseudo random period of time.  This can ease excessive device latency when running these build scripts.
 rm -f opt/api/github/.git opt/db/.git scripts/bash/shlibs/.git scripts/sh/shlibs/.git || _PESTRG_	# remove automatically generated submodule .git files which were created through the process of cloning and updating git repositories as submodules
