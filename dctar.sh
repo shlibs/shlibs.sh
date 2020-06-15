@@ -56,10 +56,9 @@ _PRINTMDONE_ () {
 }
 
 _PRINTHDCT_ () {
-	cat "$0"
 	printf "%s\\n%s\\n" "Options for \` ${0##*/} \` are:" "0	see \` cat ${0##*/} \` for more information"
 	grep -w "elif \[" "$0" | awk '{print $5" "$8" "$9" "$10" "$11" "$12" "$13" "$14" "$15" "$16}'
-	printf "%s\\n" "\` ${0##*/} \` should be run with an option as \` ${0##*/} \` removes *.tar.gz files as requested through options."
+	printf "%s\\n" "The script \` ${0##*/} \` should be run with an option as \` ${0##*/} \` removes *.tar.gz files as requested through options."
 }
 
 _PRINTPTF_ () {
