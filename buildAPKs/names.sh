@@ -62,7 +62,7 @@ _NAMESLOG_ () { # check if USENAME is found in NAMES file, and adds USENAME, DS 
 	then # add USENAME, DS, BT, NAMFS and NAPKS to NAMES file
 		_PRINTPRN_ 
 		BT="$(( $(date +%s)-$ST ))" # calculate build time
-		printf "\\n%s" "Calculating download size: "
+		printf "\\n%s" "Calculating build size: "
 		DS="$(du -hs $JDR | awk '{print $1}')"
 		printf "%s\\n" "$DS"
 		# if file exists, get number of AndroidManifest.xml files found or set NAMFS to zero
