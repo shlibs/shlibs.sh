@@ -56,6 +56,11 @@ _PRT_ () {	# print message with no trialing newline
 	printf "%s" "$1"
 }
 
+_UP_ () {	# add or update git submodule repository
+	(git submodule update --depth 1 --recursive --remote "$IMFSTRG" || git submodule add --depth 1 "$MRASTRG" "$IMFSTRG") && cd "$RDR/$IMFSTRG" && _PRCS_ && cd "$RDR" || _PESTRG_	# the command ` git submodule help ` and the book https://git-scm.com/book/en/v2/Git-Tools-Submodules have more information about git submodules.
+	sleep 0."$(shuf -i 24-72 -n 1)"	# enhance device and network latency support on fast networks;  See ` grep -hC 4 -r sleep ~/buildAPKs/scripts ` for complementary latency applications of ` sleep ` when BuildAPKs is installed.  You can use https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash to set ~/buildAPKs up on device with ` curl -OL https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash ; bash setup.buildAPKs.bash `.  It appears that a little sleep can go a long way in reducing network collisions on fast networks.
+}
+
 _PRNT_ "Script ${0##*/} up.sh: STARTED..."
 WSTRING="Warning ${0##*/} up.sh; Continuing...  "	# define WSTRING warning message
 RDR="$HOME/buildAPKs"		# define root directory
@@ -68,19 +73,17 @@ sleep 0."$(shuf -i 24-72 -n 1)"	# add device and network latency support;  Comma
 rm -f opt/api/github/.git opt/db/.git scripts/bash/shlibs/.git scripts/sh/shlibs/.git || _PESTRG_	# remove automatically generated submodule .git files which were created through the process of cloning and updating git repositories as submodules
 IMFSTRG="opt/api/github"	# define install module folder
 MRASTRG="$SIADS/buildAPKs.github"	 # define module repository site
-(git submodule update --depth 1 --recursive --remote "$IMFSTRG" || git submodule add --depth 1 "$MRASTRGz" "$IMFSTRG") && cd "$RDR/$IMFSTRG" && _PRCS_ && cd "$RDR" || _PESTRG_	# the command ` git submodule help ` and the book https://git-scm.com/book/en/v2/Git-Tools-Submodules have more information about git submodules
-sleep 0."$(shuf -i 24-72 -n 1)"	# enhance device and network latency support on fast networks;  ` grep -hC 4 -r sleep ~/buildAPKs/scripts ` shows additional latency usage of ` sleep ` in BuildAPKs once BuildAPKs is installed.  Commands like this script, and ` build.github.bash ` can send many requests.  This can lead to network packet collisions on a fast device that is connected to a fast network, which in turn causes excessive network latency.
+_UP_	# add or update git submodule repository
 IMFSTRG="opt/db" # redefine install module folder
 MRASTRG="$SIADS/db.BUildAPKs"	# redefine module repository site address
-(git submodule update --depth 1 --recursive --remote "$IMFSTRG" || git submodule add --depth 1 "$MRASTRG" "$IMFSTRG") && cd "$RDR/$IMFSTRG" && _PRCS_ && cd "$RDR" || _PESTRG_	# the command ` git submodule help ` and the book https://git-scm.com/book/en/v2/Git-Tools-Submodules have more information about git submodules
-sleep 0."$(shuf -i 24-72 -n 1)"	# increase device and network latency support on fast networks;  See ` grep -hC 4 -r sleep ~/buildAPKs/scripts ` for complementary latency applications of ` sleep ` when BuildAPKs is installed.  You can use https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash to set ~/buildAPKs up on device with ` curl -OL https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash ; bash setup.buildAPKs.bash `.  It appears that a little sleep can go a long way in reducing network collisions on fast networks.
+_UP_
 SIADS="$SIAD/shlibs"	# redefine login
 IMFSTRG="scripts/bash/shlibs"
 MRASTRG="$SIADS/shlibs.bash"
-(git submodule update --depth 1 --recursive --remote "$IMFSTRG" || git submodule add --depth 1 "$MRASTRG" "$IMFSTRG") && cd "$RDR/$IMFSTRG" && _PRCS_ && cd "$RDR" || _PESTRG_ 
+_UP_
 sleep 0."$(shuf -i 24-72 -n 1)"
 IMFSTRG="scripts/sh/shlibs"
 MRASTRG="$SIADS/shlibs.sh"
-(git submodule update --depth 1 --recursive --remote "$IMFSTRG" || git submodule add --depth 1 "$MRASTRG" "$IMFSTRG") && cd "$RDR/$IMFSTRG" && _PRCS_ && cd "$RDR" || _PESTRG_ 
+_UP_
 _PRNT_ "Script ${0##*/} up.sh: DONE"
 # up.sh EOF
