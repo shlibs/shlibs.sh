@@ -65,8 +65,8 @@ _PRNT_ "Script ${0##*/} up.sh: STARTED..."
 WSTRING="Warning ${0##*/} up.sh; Continuing...  "	# define WSTRING warning message
 RDR="$HOME/buildAPKs"		# define root directory
 SIAD="git://github.com"	# define site address
-SIADS="$SIAD/BuildAPKs"		# define login
-cd "$RDR"	# change directory to root directory
+SIADS="$SIAD/BuildAPKs"	# define login
+cd "$RDR"		# change directory to root directory
 git pull --ff-only	# update local git repository to the newest version
 _CSLIST_ || _PESTRG_	# run either functions _CSLIST_ or _PESTRG_
 sleep 0."$(shuf -i 24-72 -n 1)"	# add device and network latency support;  Commands like this script can request many read write operations.  The sleep plus shuf commands cause this script to wait for a short pseudo random period of time.  This can ease excessive device latency when running these build scripts.
