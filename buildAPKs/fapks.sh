@@ -5,7 +5,7 @@
 #####################################################################
 set -eu
 _APKBC_() {
-	APKSN="($(find "$JDR" -type f -name "*.apk"))" 
+	APKSN=($(find "$JDR" -type f -name "*.apk"))
 	DS="$(du -bhs $JDR | awk '{print $1}')"
 	NAPKS="${#APKSN[@]}"
 	if [ "$NAPKS" -ne 1 ]
