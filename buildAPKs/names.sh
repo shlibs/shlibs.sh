@@ -62,8 +62,13 @@ _NAMESLOG_ () { # check if USENAME is found in NAMES file, and adds USENAME, DS 
 	then # add USENAME, DS, BT, NAMFS and NAPKS to NAMES file
 		_PRINTPRN_ 
 		BT="$(( $(date +%s)-$ST ))" # calculate build time
-		DS="$(cat "$JDR/var/conf/DS.db")" || printf "%s\\n" "WARNING: ${0##*/} names.sh _NAMESLOG_ DS"
-		: ${DS:=1}
+		if [ ! -f "$JDR/var/conf/DS.db" ] # DS.db does not exist in JDR/var/ conf
+		then	# assign DS as 1
+			DS="1"
+		else	# assign DS as download size
+			DS="$(cat "$JDR/var/conf/DS.db")" || printf "%s\\n" "WARNING: ${0##*/} names.sh _NAMESLOG_ DS"
+		fi
+		: ${DS:=1}	# assign DS as 1 if DS is undefined
 		# if file exists, get number of AndroidManifest.xml files found or set NAMFS to zero
 		[[ -f "$JDR/var/conf/NAMFS.db" ]] && NAMFS="$(cat $JDR/var/conf/NAMFS.db)" || NAMFS=0 
 		# if file exists, get names of AndroidManifest.xml files found or set NAMKS to nothing
