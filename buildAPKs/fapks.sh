@@ -8,6 +8,7 @@ _APKBC_() {
 	APKSN=($(find "$JDR" -type f -name "*.apk"))
 	DS="$(du -bhs $JDR | awk '{print $1}')"
 	NAPKS="${#APKSN[@]}"
+	: ${APKSN:=0}
 	if [ "$NAPKS" -ne 1 ]
 	then
 		printf "%s" "Writing $NAPKS APKs built to $JDR/var/conf/NAPKS.db  "
