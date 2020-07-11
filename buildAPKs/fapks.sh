@@ -5,10 +5,12 @@
 #####################################################################
 set -eu
 _APKBC_() {
+	printf "%s\\n" "Searching for built APKs, and calculating build size:"
 	APKSN=($(find "$JDR" -type f -name "*.apk" | cut -f9-99 -d"/"))
 	DS="$(du -bhs $JDR | awk '{print $1}')"
 	NAPKS="${#APKSN[@]}"
 	: ${APKSN:=0}
+	printf "%s\\n" "Found $NAPKS built APKs, and build size is $DS."
 	if [ "$NAPKS" -ne 1 ]
 	then
 		printf "%s" "Writing $NAPKS APKs built to $JDR/var/conf/NAPKS.db  "
