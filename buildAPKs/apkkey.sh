@@ -4,7 +4,7 @@
 #####################################################################
 set -eu 
 RDR="$HOME/buildAPKs"		# define root directory
-. "$RDR/scripts/sh/shlibs/buildAPKs/inst.sh"
+. "$RDR/scripts/sh/shlibs/inst.sh"
 _INST_ "openssl" "openssl-tool" "apkkey.sh" 
 openssl genrsa -out key.pem 2048
 openssl req -new -key key.pem -out request.pem
