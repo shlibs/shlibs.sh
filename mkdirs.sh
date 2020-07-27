@@ -16,7 +16,7 @@ _MKRDIRS_ () { # create list from arguements
 	do
 		if [ ! -d  "$RDR/$DIR" ] # DIR does not exist in ~/RDR/var/
 		then # create directory DIR in ~/RDR/var/
-			mkdir -p "$RDR/$DIR" 
+			mkdir -p "$RDR/$DIR" || printf "%s\\n" "Signal generated at mkdir -p "$RDR/$DIR" ${0##*/} mkdirs.sh : Continuing : " 
 		fi
 	done
 }
@@ -32,7 +32,7 @@ _MKDIRS_ () { # create list from arguements
 	do
 		if [ ! -d  "$RDR/var/$DIR" ] # DIR does not exist in ~/RDR/var/
 		then # create directory DIR in ~/RDR/var/
-			mkdir -p "$RDR/var/$DIR" 
+			mkdir -p "$RDR/var/$DIR" || printf "%s\\n" "Signal generated at mkdir -p "$RDR/var/$DIR" ${0##*/} mkdirs.sh : Continuing : " 
 		fi
 	done
 }
