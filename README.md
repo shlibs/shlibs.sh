@@ -1,4 +1,4 @@
-## [Shared shell libraries](https://shlibs.github.io/shlibs.sh/) 
+## [Shared Shell Libraries](https://shlibs.github.io/shlibs.sh/) 
 
 [This repository](https://github.com/shlibs/shlibs.sh) is a submodule for [buildAPKs](https://github.com/BuildAPKs/buildAPKs) and [SDRausty's buildAPKs](https://github.com/SDRausty/buildAPKs).
 
