@@ -6,7 +6,7 @@
 set -eu 
 
 _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/sha512.sum 
-	FAUTH="DRLIM DOSO EXTSTDO GAUTH LIBAUTH QUIET"	# exemption file list
+	FAUTH="DOSO DOSON DRLIM EXTSTDO GAUTH LIBAUTH QUIET RDR" # exemption file list
 	CSLICK="1"	# false: files have not changed
 	GEFAUTH=""	# grep -e string
 	cd "$RDR"/.conf/
