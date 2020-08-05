@@ -14,7 +14,7 @@ _MKFILES_ () { # create list from arguements
 	done
 	for AFILE in $NAMESFL
 	do
-		if [ ! -f  "$RDR/var/$AFILE" ] # AFILE does not exist in ~/RDR/var/
+		if [ ! -e  "$RDR/var/$AFILE" ] # AFILE does not exist in ~/RDR/var/
 		then # create AFILE in ~/RDR/var
 			touch "$RDR/var/$AFILE" 
 		fi
