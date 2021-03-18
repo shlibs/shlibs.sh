@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# Copyright 2019-2020 (c) all rights reserved by BuildAPKs, see LICENSE  
+# Copyright 2019-2021 (c) all rights reserved by BuildAPKs, see LICENSE  
 # https://shlibs.github.io/shlibs.sh published courtesy https://pages.github.com
 # Updates the BuildAPKs git repository and git submodules to the newest version.
 ################################################################################
@@ -64,7 +64,7 @@ _UP_ () {	# add or update git submodule repository
 _PRNT_ "Script ${0##*/} up.sh: STARTED..."
 WSTRING="Warning ${0##*/} up.sh; Continuing...  "	# define WSTRING warning message
 RDR="$HOME/buildAPKs"		# define root directory
-SIAD="git://github.com"	# define site address
+SIAD="https://github.com"	# define site address
 SIADS="$SIAD/BuildAPKs"	# define login
 cd "$RDR"		# change directory to root directory
 git pull --ff-only	# update local git repository to the newest version

@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# Copyright 2020 (c) all rights reserved by S D Rausty; See LICENSE
+# Copyright 2020-2021 (c) all rights reserved by S D Rausty; See LICENSE
 # File `inst.sh` is under development
 #####################################################################
 set -eu 

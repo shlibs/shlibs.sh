@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# Copyright 2017-2020 (c) all rights reserved by BuildAPKs
+# Copyright 2017-2021 (c) all rights reserved by BuildAPKs
 # See LICENSE for details https://buildapks.github.io/docsBuildAPKs/
 #####################################################################
 set -eu
