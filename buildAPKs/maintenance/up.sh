@@ -45,7 +45,7 @@ _PESTRG_ () {	# print WSTRING warning message
 _PRCS_ () {	# print checksums message and run sha512sum 
 	_PRT_  "Checking checksums in direcory ~/${RDR##*/}/$IMFSTRG with sha512sum: "
 	sha512sum -c --quiet sha512.sum 2>/dev/null || sha512sum -c sha512.sum
-	_PRNT_  "DONE"
+	_PRNT_ "DONE"
 }
 
 _PRNT_ () {	# print message with one trialing newline
@@ -84,6 +84,6 @@ _UP_
 IMFSTRG="scripts/sh/shlibs"
 MRASTRG="$SIADS/shlibs.sh"
 _UP_
-find "$RDR/sources/" -type f -name .git -delete || _PESTRG_
+_PRT_ "Running; find $RDR/sources/ -type f -name .git -delete " && find "$RDR/sources/" -type f -name .git -delete && _PRNT_ "DONE" || _PESTRG_
 _PRNT_ "Script ${0##*/} up.sh: DONE"
 # up.sh EOF
