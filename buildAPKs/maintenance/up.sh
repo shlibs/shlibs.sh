@@ -84,6 +84,6 @@ _UP_
 IMFSTRG="scripts/sh/shlibs"
 MRASTRG="$SIADS/shlibs.sh"
 _UP_
-_PRNT_ "Script ${0##*/} up.sh: DONE"
 find "$RDR/sources/" -type f -name .git -delete || _PESTRG_
+_PRNT_ "Script ${0##*/} up.sh: DONE"
 # up.sh EOF
