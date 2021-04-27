@@ -5,7 +5,7 @@
 #####################################################################
 set -eu
 
-_MKFILES_ () { # create list from arguments
+_MKVFILES_ () { # create list from arguments
 	ARGS="$@"
 	NAMESFL=""
 	for ARG in $ARGS
