@@ -24,18 +24,18 @@ _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/s
 	cd "$RDR"
 	if [ "$CSLICK" = 0 ]
 	then
-		grep -v -e ./setup.buildAPKs.bash $GEFAUTH "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*}.$$.tmp"
+		grep -v -e ./setup.buildAPKs.bash $GEFAUTH "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
 	else
-		grep -v ./setup.buildAPKs.bash "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*}.$$.tmp"
+		grep -v ./setup.buildAPKs.bash "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
 	fi
-	if sha512sum -c --quiet "$RDR/var/tmp/${0##*}.$$.tmp" 2>/dev/null 
+	if sha512sum -c --quiet "$RDR/var/tmp/${0##*/}.$$.tmp" 2>/dev/null 
 	then
 		printf "%s\\n"  "Checking checksums in directory ~/${RDR##*/} with sha512sum: DONE"
 	else
-		sha512sum -c "$RDR/var/tmp/${0##*}.$$.tmp"
+		sha512sum -c "$RDR/var/tmp/${0##*/}.$$.tmp"
 		printf "%s\\n"  "Checking checksums in directory ~/${RDR##*/} with sha512sum: DONE"
 	fi
-	rm -f "$RDR/var/tmp/${0##*}.$$.tmp" "$RDR/.conf/sha512.sum" # remove checksum file .conf/sha512.sum and temp file
+	rm -f "$RDR/var/tmp/${0##*/}.$$.tmp" "$RDR/.conf/sha512.sum" # remove checksum file .conf/sha512.sum and temp file
 }
 
 _PESTRG_ () {	# print WSTRING warning message
