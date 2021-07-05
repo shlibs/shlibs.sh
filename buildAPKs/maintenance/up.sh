@@ -8,7 +8,7 @@ set -eu
 _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/sha512.sum 
 	FAUTH="DOSO DOSON DRLIM EXTSTDO GAUTH LIBAUTH QUIET RDR" # exemption file list
 	CSLICK="1"	# false: files have not changed
-	GEFAUTH="-e .gitmodules"	# grep -e string
+	GEFAUTH="-e .gitmodules"	# grep -e use matching string
 	cd "$RDR"/.conf/
 	sha512sum $FAUTH > sha512.sum	# create checksum file RDR/.conf/sha512.sum
 	for QAUTH in $FAUTH	# each element in FAUTH
