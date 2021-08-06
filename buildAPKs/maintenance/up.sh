@@ -61,8 +61,8 @@ _UP_ () {	# add or update git submodule repository
 	sleep 0."$(shuf -i 24-72 -n 1)"	# enhance device and network latency support on fast networks;  See ` grep -hC 4 -r sleep ~/buildAPKs/scripts ` for complementary latency applications of ` sleep ` when BuildAPKs is installed.  You can use https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash to set ~/buildAPKs up on device with ` curl -OL https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash ; bash setup.buildAPKs.bash `.  It appears that a little sleep can go a long way in reducing network collisions on fast networks.
 }
 
-_PRNT_ "Script ${0##*/} up.sh: STARTED..."
-WSTRING="Warning ${0##*/} up.sh; Continuing...  "	# define WSTRING warning message
+_PRNT_ "Script ${0##*/}: STARTED..."
+WSTRING="Warning ${0##*/}; Continuing...  "	# define WSTRING warning message
 RDR="$HOME/buildAPKs"		# define root directory
 SIAD="https://github.com"	# define site address
 SIADS="$SIAD/BuildAPKs"	# define login
@@ -85,5 +85,5 @@ IMFSTRG="scripts/sh/shlibs"
 MRASTRG="$SIADS/shlibs.sh"
 _UP_
 _PRT_ "Removing '.git' files: " && find "$RDR/sources/" -maxdepth 2 -type f -name .git -delete && _PRNT_ "DONE" || _PESTRG_
-_PRNT_ "Script ${0##*/} up.sh: DONE"
+_PRNT_ "Script ${0##*/}: DONE"
 # up.sh EOF
