@@ -10,7 +10,7 @@ _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/s
 	CSLICK=1	# false: files have not changed
 	GEFAUTH="-v .gitmodules"	# select non-matching files
 	cd "$RDR"/.conf/
-	sha512sum "$FAUTH" > sha512.sum	# create checksum file RDR/.conf/sha512.sum
+	sha512sum $FAUTH > sha512.sum	# create checksum file RDR/.conf/sha512.sum
 	for QAUTH in $FAUTH	# each element in FAUTH
 	do	# find and compare hashes
 		CAUTH=$(grep "$QAUTH" "$RDR/.conf/sha512.sum" | awk '{print $1}')
