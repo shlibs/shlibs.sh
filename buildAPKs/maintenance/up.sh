@@ -1,14 +1,14 @@
 #!/usr/bin/env sh
-# Copyright 2019-2021 (c) all rights reserved by BuildAPKs, see LICENSE
+# Copyright 2019-2021 (c) all rights reserved by BuildAPKs, see LICENSE  
 # https://shlibs.github.io/shlibs.sh published courtesy https://pages.github.com
 # Updates the BuildAPKs git repository and git submodules to the newest version.
 ################################################################################
-set -eu
+set -eu 
 
-_CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/sha512.sum
+_CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/sha512.sum 
 	FAUTH="DOSO DOSON DRLIM EXTSTDO GAUTH LIBAUTH QUIET RDR" # exemption file list
-	CSLICK=1	# false: files have not changed
-	GEFAUTH="-v .gitmodules"	# select non-matching files
+	CSLICK="1"	# false: files have not changed
+	GEFAUTH="-e .gitmodules"	# grep -e use matching string
 	cd "$RDR"/.conf/
 	sha512sum $FAUTH > sha512.sum	# create checksum file RDR/.conf/sha512.sum
 	for QAUTH in $FAUTH	# each element in FAUTH
@@ -28,7 +28,7 @@ _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/s
 	else
 		grep -v ./setup.buildAPKs.bash "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
 	fi
-	if sha512sum -c --quiet "$RDR/var/tmp/${0##*/}.$$.tmp" 2>/dev/null
+	if sha512sum -c --quiet "$RDR/var/tmp/${0##*/}.$$.tmp" 2>/dev/null 
 	then
 		printf "%s\\n"  "Checking checksums in directory ~/${RDR##*/} with sha512sum: DONE"
 	else
@@ -42,7 +42,7 @@ _PESTRG_ () {	# print WSTRING warning message
 	_PRNT_ "$WSTRING"
 }
 
-_PRCS_ () {	# print checksums message and run sha512sum
+_PRCS_ () {	# print checksums message and run sha512sum 
 	_PRT_  "Checking checksums in directory ~/${RDR##*/}/$IMFSTRG with sha512sum: "
 	sha512sum -c --quiet sha512.sum 2>/dev/null || sha512sum -c sha512.sum
 	_PRNT_ "DONE"
@@ -68,8 +68,8 @@ SIAD="https://github.com"	# define site address
 SIADS="$SIAD/BuildAPKs"	# define login
 cd "$RDR"		# change directory to root directory
 git pull --ff-only	# update local git repository to the newest version
-_CSLIST_ || _PESTRG_	# if function _CSLIST_ failes then run function _PESTRG_
-sleep 0.$(shuf -i 24-72 -n 1)	# add device and network latency support;  Commands like this script can request many read write operations.  The sleep plus shuf commands cause this script to wait for a short pseudo random period of time.  This can ease excessive device latency when running these build scripts.
+_CSLIST_ || _PESTRG_	# run either functions _CSLIST_ or _PESTRG_
+sleep 0."$(shuf -i 24-72 -n 1)"	# add device and network latency support;  Commands like this script can request many read write operations.  The sleep plus shuf commands cause this script to wait for a short pseudo random period of time.  This can ease excessive device latency when running these build scripts.
 rm -f opt/api/github/.git opt/db/.git scripts/bash/shlibs/.git scripts/sh/shlibs/.git || _PESTRG_	# remove automatically generated submodule .git files which were created through the process of cloning and updating git repositories as submodules
 IMFSTRG="opt/api/github"	# define install module folder
 MRASTRG="$SIADS/buildAPKs.github"	 # define module repository site
