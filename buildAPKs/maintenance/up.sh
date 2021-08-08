@@ -1,11 +1,11 @@
 #!/usr/bin/env sh
-# Copyright 2019-2021 (c) all rights reserved by BuildAPKs, see LICENSE  
+# Copyright 2019-2021 (c) all rights reserved by BuildAPKs, see LICENSE
 # https://shlibs.github.io/shlibs.sh published courtesy https://pages.github.com
 # Updates the BuildAPKs git repository and git submodules to the newest version.
 ################################################################################
-set -eu 
+set -eu
 
-_CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/sha512.sum 
+_CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/sha512.sum
 	FAUTH="DOSO DOSON DRLIM EXTSTDO GAUTH LIBAUTH QUIET RDR" # exemption file list
 	CSLICK="1"	# false: files have not changed
 	GEFAUTH="-e .gitmodules"	# grep -e use matching string
@@ -28,7 +28,7 @@ _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/s
 	else
 		grep -v ./setup.buildAPKs.bash "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
 	fi
-	if sha512sum -c --quiet "$RDR/var/tmp/${0##*/}.$$.tmp" 2>/dev/null 
+	if sha512sum -c --quiet "$RDR/var/tmp/${0##*/}.$$.tmp" 2>/dev/null
 	then
 		printf "%s\\n"  "Checking checksums in directory ~/${RDR##*/} with sha512sum: DONE"
 	else
@@ -42,7 +42,7 @@ _PESTRG_ () {	# print WSTRING warning message
 	_PRNT_ "$WSTRING"
 }
 
-_PRCS_ () {	# print checksums message and run sha512sum 
+_PRCS_ () {	# print checksums message and run sha512sum
 	_PRT_  "Checking checksums in directory ~/${RDR##*/}/$IMFSTRG with sha512sum: "
 	sha512sum -c --quiet sha512.sum 2>/dev/null || sha512sum -c sha512.sum
 	_PRNT_ "DONE"
