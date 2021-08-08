@@ -7,10 +7,10 @@ set -eu
 
 _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/sha512.sum 
 	FAUTH="DOSO DOSON DRLIM EXTSTDO GAUTH LIBAUTH QUIET RDR" # exemption file list
-	CSLICK="1"	# false: files have not changed
-	GEFAUTH="-e .gitmodules"	# grep -e use matching string
+	CSLICK=1	# false: files have not changed
+	GEFAUTH="-v .gitmodules"	# select non-matching files
 	cd "$RDR"/.conf/
-	sha512sum $FAUTH > sha512.sum	# create checksum file RDR/.conf/sha512.sum
+	sha512sum "$FAUTH" > sha512.sum	# create checksum file RDR/.conf/sha512.sum
 	for QAUTH in $FAUTH	# each element in FAUTH
 	do	# find and compare hashes
 		CAUTH=$(grep "$QAUTH" "$RDR/.conf/sha512.sum" | awk '{print $1}')
@@ -68,8 +68,8 @@ SIAD="https://github.com"	# define site address
 SIADS="$SIAD/BuildAPKs"	# define login
 cd "$RDR"		# change directory to root directory
 git pull --ff-only	# update local git repository to the newest version
-_CSLIST_ || _PESTRG_	# run either functions _CSLIST_ or _PESTRG_
-sleep 0."$(shuf -i 24-72 -n 1)"	# add device and network latency support;  Commands like this script can request many read write operations.  The sleep plus shuf commands cause this script to wait for a short pseudo random period of time.  This can ease excessive device latency when running these build scripts.
+_CSLIST_ || _PESTRG_	# if function _CSLIST_ failes then run function _PESTRG_
+sleep 0.$(shuf -i 24-72 -n 1)	# add device and network latency support;  Commands like this script can request many read write operations.  The sleep plus shuf commands cause this script to wait for a short pseudo random period of time.  This can ease excessive device latency when running these build scripts.
 rm -f opt/api/github/.git opt/db/.git scripts/bash/shlibs/.git scripts/sh/shlibs/.git || _PESTRG_	# remove automatically generated submodule .git files which were created through the process of cloning and updating git repositories as submodules
 IMFSTRG="opt/api/github"	# define install module folder
 MRASTRG="$SIADS/buildAPKs.github"	 # define module repository site
