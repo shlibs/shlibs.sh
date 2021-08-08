@@ -1,49 +1,49 @@
 #!/usr/bin/env sh
-# Copyright 2019-2021 (c) all rights reserved by S D Rausty, see LICENSE  
+# Copyright 2019-2021 (c) all rights reserved by S D Rausty, see LICENSE
 # https://sdrausty.github.io hosted courtesy https://pages.github.com
 # File ` dctar.sh ` deletes corrupt *.tar.gz files.
 ################################################################################
 set -eu
 
 _MAINDCTAR_ () {
-	_PRINTPTF_ 
+	_PRINTPTF_
 	if [ "$1" = 0 ] # the first agrurment equals 0
 	then	# process
 		if [ "${PWD##*/}" = tarballs ]
 		then
-			LTYPE="$(ls)" || _PRINTCPF_ 
+			LTYPE="$(ls)" || _PRINTCPF_
 			_PTGS_
 		else
-			_PRINTCPF_ 
+			_PRINTCPF_
 		fi
 	elif [ "$1" = ls ] # finds and removes corrupt tarballs with ls; depth 1
 	then
-		LTYPE="$(ls *.tar.gz)" || _PRINTCPF_ 
+		LTYPE="$(ls *.tar.gz)" || _PRINTCPF_
 		_PTGS_
 	elif [ "$1" = lsf ] # finds and removes corrupt tarballs with ls; depth 2
 	then
-		LTYPE="$(ls -d -1 ./**/*.tar.gz)" || _PRINTCPF_ 
+		LTYPE="$(ls -d -1 ./**/*.tar.gz)" || _PRINTCPF_
 		_PTGS_
 	elif [ "$1" = find ] # finds and removes corrupt tarballs with find; depth unlimited
 	then
-		LTYPE="$(find . -type f -name "*.tar.gz")" || _PRINTCPF_ 
+		LTYPE="$(find . -type f -name "*.tar.gz")" || _PRINTCPF_
 		_PTGS_
 	elif [ "$1" = find2 ] # finds and removes corrupt tarballs with find; depth 2
 	then
-		LTYPE="$(find . -maxdepth 2 -type f -name "*.tar.gz")" || _PRINTCPF_ 
+		LTYPE="$(find . -maxdepth 2 -type f -name "*.tar.gz")" || _PRINTCPF_
 		_PTGS_
 	elif [ "$1" = find3 ] # finds and removes corrupt tarballs with find; depth 3
 	then
-		LTYPE="$(find . -maxdepth 3 -type f -name "*.tar.gz")" || _PRINTCPF_ 
+		LTYPE="$(find . -maxdepth 3 -type f -name "*.tar.gz")" || _PRINTCPF_
 		_PTGS_
 	else
 		_PTG_ "$1"
 	fi
-	_PRINTMDONE_ 
+	_PRINTMDONE_
 }
 
 _PRINTCPF_ () {
-	printf "%s\\n" "Cannot process *.tar.gz files!"  
+	printf "%s\\n" "Cannot process *.tar.gz files!"
 }
 
 _PRINTDONE_ () {
@@ -68,22 +68,22 @@ _PRINTPTF_ () {
 
 _PTGS_ () { # process and remove *.tar.gz files with errors
 	for FNAME in $LTYPE
-	do 
+	do
 		printf "%s" "Processing file $FNAME: "
-		if ! tar tf "$FNAME" 1>/dev/null 
-		then 
-			rm -f "$FNAME" 
+		if ! tar tf "$FNAME" 1>/dev/null
+		then
+			rm -f "$FNAME"
 		fi
 		printf "%s\\n" "DONE"
 	done
 }
 
 _PTG_ () { # process and remove a *.tar.gz file with errors
-	if ! tar tf "$1" 1>/dev/null 
-	then 
-		rm -f "$1" 
+	if ! tar tf "$1" 1>/dev/null
+	then
+		rm -f "$1"
 	fi
 }
 
-[ -z "${1:-}" ] && _PRINTHDCT_ || _MAINDCTAR_ "$@" 
+[ -z "${1:-}" ] && _PRINTHDCT_ || _MAINDCTAR_ "$@"
 # dctar.sh EOF

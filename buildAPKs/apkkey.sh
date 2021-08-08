@@ -2,10 +2,10 @@
 # Copyright 2020-2021 (c) all rights reserved by S D Rausty; See LICENSE
 # File `apkkey.sh` is under development
 #####################################################################
-set -eu 
+set -eu
 RDR="$HOME/buildAPKs"		# define root directory
 . "$RDR/scripts/sh/shlibs/inst.sh"
-_INST_ "openssl" "openssl-tool" "apkkey.sh" 
+_INST_ "openssl" "openssl-tool" "apkkey.sh"
 openssl genrsa -out key.pem 2048
 openssl req -new -key key.pem -out request.pem
 openssl x509 -req -days 9999 -in request.pem -signkey key.pem -out certificate.pem

@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# Copyright 2019-2021 (c) all rights reserved by S D Rausty; see LICENSE  
+# Copyright 2019-2021 (c) all rights reserved by S D Rausty; see LICENSE
 # https://sdrausty.github.io hosted courtesy https://pages.github.com
 # adds files to $RDR/var/ from arguments
 #####################################################################
@@ -16,7 +16,7 @@ _MKVFILES_ () { # create list from arguments
 	do
 		if [ ! -e  "$RDR/var/$AFILE" ] # AFILE does not exist in RDR/var
 		then # create AFILE in RDR/var
-			touch "$RDR/var/$AFILE" 
+			touch "$RDR/var/$AFILE"
 		fi
 	done
 }
