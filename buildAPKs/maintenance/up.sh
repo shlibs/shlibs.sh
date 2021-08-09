@@ -22,7 +22,7 @@ _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/s
 		fi
 	done
 	cd "$RDR"
-		grep -v -e ./setup.buildAPKs.bash "$GEFAUTH" "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
+		grep -v -e ./setup.buildAPKs.bash $GEFAUTH "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
 	if [ "$CSLICK" = 0 ]
 	then
 		grep -v -e ./setup.buildAPKs.bash "$GEFAUTH" "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
