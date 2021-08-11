@@ -67,8 +67,8 @@ RDR="$HOME/buildAPKs"		# define root directory
 SIAD="https://github.com"	# define site address
 SIADS="$SIAD/BuildAPKs"	# define remote login
 _PRNT_ "Script ${0##*/}: STARTED..."
-cd "$RDR"		# change directory to root directory
-git pull --ff-only	# update local git repository to the newest version
+cd "$RDR"	# change directory to root directory
+git pull	# update local git repository to the newest version
 _CSLIST_ || _PESTRG_	# run function _PESTRG_ if function _CSLIST_ errs
 sleep 0.$(shuf -i 24-72 -n 1)	# add device and network latency support;  Commands like this script can request many read write operations.  The sleep plus shuf commands cause this script to wait for a short pseudo random period of time.  This can ease excessive device latency when running these build scripts.
 sed -i '/gitmodules/d' sha512.sum && git add sha512.sum && git commit -m 'commit $(date)'
