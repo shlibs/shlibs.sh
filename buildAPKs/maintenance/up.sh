@@ -13,8 +13,8 @@ _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/s
 	sha512sum $FAUTH > sha512.sum	# create checksum file RDR/.conf/sha512.sum
 	for QAUTH in $FAUTH	# each element in FAUTH
 	do	# find and compare hashes
-		CAUTH=$(/system/bin/grep "$QAUTH" "$RDR/.conf/sha512.sum" | awk '{print $1}')
-		RAUTH=$(/system/bin/grep "$QAUTH" "$RDR/sha512.sum" | awk '{print $1}')
+		CAUTH=$("$COMDGREP" "$QAUTH" "$RDR/.conf/sha512.sum" | awk '{print $1}')
+		RAUTH=$("$COMDGREP" "$QAUTH" "$RDR/sha512.sum" | awk '{print $1}')
 		if [ "$RAUTH" != "$CAUTH" ]	# hashes differ
 		then	# reassign these variables
 			GEFAUTH="$GEFAUTH -e $QAUTH"	# build GEFAUTH string
@@ -22,12 +22,12 @@ _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/s
 		fi
 	done
 	cd "$RDR"
-		/system/bin/grep -v -e ./setup.buildAPKs.bash $GEFAUTH "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
+		"$COMDGREP" -v -e ./setup.buildAPKs.bash $GEFAUTH "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
 	if [ "$CSLICK" = 0 ]
 	then
-		/system/bin/grep -v -e ./setup.buildAPKs.bash "$GEFAUTH" "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
+		"$COMDGREP" -v -e ./setup.buildAPKs.bash "$GEFAUTH" "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
 	else
-		/system/bin/grep -v ./setup.buildAPKs.bash "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
+		"$COMDGREP" -v ./setup.buildAPKs.bash "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
 	fi
 	if sha512sum -c --quiet "$RDR/var/tmp/${0##*/}.$$.tmp" 2>/dev/null
 	then
@@ -45,7 +45,7 @@ _PESTRG_ () {	# print WSTRING warning message
 
 _PRCS_ () {	# print checksums message and run sha512sum
 	_PRT_  "Checking checksums in directory ~/${RDR##*/}/$IMFSTRG with sha512sum: "
-	if /system/bin/grep "\.\/\.scripts\/maintenance\/" sha512.sum
+	if "$COMDGREP" "\.\/\.scripts\/maintenance\/" sha512.sum 1>/dev/null
 	then
 		sed -i '/\.\/\.scripts\/maintenance\//d' sha512.sum
 	fi
@@ -66,7 +66,18 @@ _UP_ () {	# add or update git submodule repository
 	sleep 0.$(shuf -i 24-72 -n 1)	# enhance device and network latency support on fast networks;  See ` grep -hC 4 -r sleep ~/buildAPKs/scripts ` for complementary latency applications of ` sleep ` when BuildAPKs is installed.  You can use https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash to set ~/buildAPKs up on device with ` curl -OL https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash ; bash setup.buildAPKs.bash `.  It appears that a little sleep can go a long way in reducing network collisions on fast networks.
 }
 
-WSTRING="Warning ${0##*/}; Continuing...  "	# define WSTRING warning message
+WSTRING="WARNING: Could not determine grep command ${0##*/}; Continuing...  "	# define WSTRING warning message
+if command -v /system/bin/grep 1>/dev/null
+then
+COMDGREP="/system/bin/grep"	# define COMDGREP
+elif command -v grep 1>/dev/null
+then
+COMDGREP="grep"	# define COMDGREP
+else
+_PESTRG_
+COMDGREP="grep"	# define COMDGREP
+fi
+WSTRING="WARNING ${0##*/}; Continuing...  "	# define WSTRING warning message
 RDR="$HOME/buildAPKs"		# define root directory
 SIAD="https://github.com"	# define site address
 SIADS="$SIAD/BuildAPKs"	# define remote login
@@ -75,9 +86,9 @@ cd "$RDR"	# change directory to root directory
 git pull	# update local git repository to the newest version
 _CSLIST_ || _PESTRG_	# run function _PESTRG_ if function _CSLIST_ errs
 sleep 0.$(shuf -i 24-72 -n 1)	# add device and network latency support;  Commands like this script can request many read write operations.  The sleep plus shuf commands cause this script to wait for a short pseudo random period of time.  This can ease excessive device latency when running these build scripts.
-if /system/bin/grep gitmodules sha512.sum
+if "$COMDGREP" gitmodules sha512.sum 1>/dev/null
 then
-sed -i '/gitmodules/d' sha512.sum && git add sha512.sum && git commit -m 'commit $(date)'
+sed -i '/gitmodules/d' sha512.sum && git add sha512.sum && git commit -m "commit $(date)"
 fi
 rm -f opt/api/github/.git opt/db/.git scripts/bash/shlibs/.git scripts/sh/shlibs/.git || _PESTRG_	# remove automatically generated submodule .git files which were created through the process of cloning and updating git repositories as submodules
 IMFSTRG="opt/api/github"	# define install module folder
