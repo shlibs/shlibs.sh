@@ -8,13 +8,13 @@ set -eu
 _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/sha512.sum
 	FAUTH="DOSO DOSON DRLIM EXTSTDO GAUTH LIBAUTH QUIET RDR" # exemption file list
 	CSLICK=1	# false: files have not changed
-	GEFAUTH="-v .gitmodules"	# grep -v select non-matching lines
+	GEFAUTH="-e .gitmodules"
 	cd "$RDR"/.conf/
 	sha512sum $FAUTH > sha512.sum	# create checksum file RDR/.conf/sha512.sum
 	for QAUTH in $FAUTH	# each element in FAUTH
 	do	# find and compare hashes
-		CAUTH=$(grep "$QAUTH" "$RDR/.conf/sha512.sum" | awk '{print $1}')
-		RAUTH=$(grep "$QAUTH" "$RDR/sha512.sum" | awk '{print $1}')
+		CAUTH=$(/system/bin/grep "$QAUTH" "$RDR/.conf/sha512.sum" | awk '{print $1}')
+		RAUTH=$(/system/bin/grep "$QAUTH" "$RDR/sha512.sum" | awk '{print $1}')
 		if [ "$RAUTH" != "$CAUTH" ]	# hashes differ
 		then	# reassign these variables
 			GEFAUTH="$GEFAUTH -e $QAUTH"	# build GEFAUTH string
@@ -22,12 +22,12 @@ _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/s
 		fi
 	done
 	cd "$RDR"
-		grep -v -e ./setup.buildAPKs.bash $GEFAUTH "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
+		/system/bin/grep -v -e ./setup.buildAPKs.bash $GEFAUTH "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
 	if [ "$CSLICK" = 0 ]
 	then
-		grep -v -e ./setup.buildAPKs.bash "$GEFAUTH" "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
+		/system/bin/grep -v -e ./setup.buildAPKs.bash "$GEFAUTH" "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
 	else
-		grep -v ./setup.buildAPKs.bash "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
+		/system/bin/grep -v ./setup.buildAPKs.bash "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
 	fi
 	if sha512sum -c --quiet "$RDR/var/tmp/${0##*/}.$$.tmp" 2>/dev/null
 	then
@@ -71,7 +71,7 @@ cd "$RDR"	# change directory to root directory
 git pull	# update local git repository to the newest version
 _CSLIST_ || _PESTRG_	# run function _PESTRG_ if function _CSLIST_ errs
 sleep 0.$(shuf -i 24-72 -n 1)	# add device and network latency support;  Commands like this script can request many read write operations.  The sleep plus shuf commands cause this script to wait for a short pseudo random period of time.  This can ease excessive device latency when running these build scripts.
-if grep gitmodules sha512.sum
+if /system/bin/grep gitmodules sha512.sum
 then
 sed -i '/gitmodules/d' sha512.sum && git add sha512.sum && git commit -m 'commit $(date)'
 fi
