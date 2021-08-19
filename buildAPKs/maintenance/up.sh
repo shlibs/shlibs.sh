@@ -45,6 +45,10 @@ _PESTRG_ () {	# print WSTRING warning message
 
 _PRCS_ () {	# print checksums message and run sha512sum
 	_PRT_  "Checking checksums in directory ~/${RDR##*/}/$IMFSTRG with sha512sum: "
+	if /system/bin/grep "\.\/\.scripts\/maintenance\/" sha512.sum
+	then
+		sed -i '/\.\/\.scripts\/maintenance\//d' sha512.sum
+	fi
 	sha512sum -c --quiet sha512.sum 2>/dev/null || sha512sum -c sha512.sum
 	_PRNT_ "DONE"
 }
