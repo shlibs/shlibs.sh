@@ -66,6 +66,7 @@ _UP_ () {	# add or update git submodule repository
 	sleep 0.$(shuf -i 24-72 -n 1)	# enhance device and network latency support on fast networks;  See ` grep -hC 4 -r sleep ~/buildAPKs/scripts ` for complementary latency applications of ` sleep ` when BuildAPKs is installed.  You can use https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash to set ~/buildAPKs up on device with ` curl -OL https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash ; bash setup.buildAPKs.bash `.  It appears that a little sleep can go a long way in reducing network collisions on fast networks.
 }
 
+_PRNT_ "Script ${0##*/}: STARTED..."
 WSTRING="WARNING: Could not determine grep command ${0##*/}; Continuing...  "	# define WSTRING warning message
 if command -v /system/bin/grep 1>/dev/null
 then
@@ -81,7 +82,6 @@ WSTRING="WARNING ${0##*/}; Continuing...  "	# define WSTRING warning message
 RDR="$HOME/buildAPKs"		# define root directory
 SIAD="https://github.com"	# define site address
 SIADS="$SIAD/BuildAPKs"	# define remote login
-_PRNT_ "Script ${0##*/}: STARTED..."
 cd "$RDR"	# change directory to root directory
 git pull	# update local git repository to the newest version
 _CSLIST_ || _PESTRG_	# run function _PESTRG_ if function _CSLIST_ errs
