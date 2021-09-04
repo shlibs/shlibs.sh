@@ -6,9 +6,8 @@
 set -eu
 
 _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/sha512.sum
-	FAUTH="DOSO DOSON DRLIM EXTSTDO GAUTH LIBAUTH QUIET RDR" # exemption file list
-	CSLICK=1	# false: files have not changed
-	GEFAUTH="-e .gitmodules"
+	! grep "setup.buildAPKs.bash" "$RDR"/sha512.sum || sed -i "/setup.buildAPKs.bash/d" "$RDR"/sha512.sum
+	FAUTH="DOSO DOSON DRLIM EXTSTDO GAUTH LIBAUTH QUIET RDR" # file list
 	cd "$RDR"/.conf/
 	sha512sum $FAUTH > sha512.sum	# create checksum file RDR/.conf/sha512.sum
 	for QAUTH in $FAUTH	# each element in FAUTH
@@ -16,27 +15,19 @@ _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/s
 		CAUTH=$("$COMDGREP" "$QAUTH" "$RDR/.conf/sha512.sum" | awk '{print $1}')
 		RAUTH=$("$COMDGREP" "$QAUTH" "$RDR/sha512.sum" | awk '{print $1}')
 		if [ "$RAUTH" != "$CAUTH" ]	# hashes differ
-		then	# reassign these variables
-			GEFAUTH="$GEFAUTH -e $QAUTH"	# build GEFAUTH string
-			CSLICK=0	# true: files have changed
+		then	# delete line with changed checksum in RDR/sha512.sum
+			sed -i "/$QAUTH/d" "$RDR"/sha512.sum
 		fi
 	done
+	rm -f sha512.sum # remove checksum file .conf/sha512.sum and temp file
 	cd "$RDR"
-		"$COMDGREP" -v -e ./setup.buildAPKs.bash $GEFAUTH "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
-	if [ "$CSLICK" = 0 ]
-	then
-		"$COMDGREP" -v -e ./setup.buildAPKs.bash "$GEFAUTH" "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
-	else
-		"$COMDGREP" -v ./setup.buildAPKs.bash "$RDR/sha512.sum" > "$RDR/var/tmp/${0##*/}.$$.tmp"
-	fi
-	if sha512sum -c --quiet "$RDR/var/tmp/${0##*/}.$$.tmp" 2>/dev/null
+	if sha512sum -c --quiet sha512.sum
 	then
 		printf "%s\\n"  "Checking checksums in directory ~/${RDR##*/} with sha512sum: DONE"
 	else
-		sha512sum -c "$RDR/var/tmp/${0##*/}.$$.tmp"
+		sha512sum -c sha512.sum
 		printf "%s\\n"  "Checking checksums in directory ~/${RDR##*/} with sha512sum: DONE"
 	fi
-	rm -f "$RDR/var/tmp/${0##*/}.$$.tmp" "$RDR/.conf/sha512.sum" # remove checksum file .conf/sha512.sum and temp file
 }
 
 _PESTRG_ () {	# print WSTRING warning message
@@ -83,7 +74,7 @@ RDR="$HOME/buildAPKs"		# define root directory
 SIAD="https://github.com"	# define site address
 SIADS="$SIAD/BuildAPKs"	# define remote login
 cd "$RDR"	# change directory to root directory
-git pull || ( git add && git commit && git pull ) || ( printf "%s\\n"  "Please study the output.  Directory '~/${RDR##*/}/stash' can be used to store files if 'error: Your local changes to the following files would be overwritten by merge:' is found. Then please use this ${0##*/} to update ~/${RDR##*/} to the most recent version published." && exit 204 )	# update local git repository to the newest version
+git pull || ( git add && git commit && git pull ) || ( printf "%s\\n"  "Please study the output.  Directory '~/${RDR##*/}/stash' can be used to store files if 'error: Your local changes to the following files would be overwritten by merge:' is found. Then please use this ${0##*/} to update ~/${RDR##*/} to the most recent version published." && exit 204 )	# update local git repository to the newest version published
 _CSLIST_ || _PESTRG_	# run function _PESTRG_ if function _CSLIST_ errs
 sleep 0.$(shuf -i 24-72 -n 1)	# add device and network latency support;  Commands like this script can request many read write operations.  The sleep plus shuf commands cause this script to wait for a short pseudo random period of time.  This can ease excessive device latency when running these build scripts.
 if "$COMDGREP" gitmodules sha512.sum 1>/dev/null
