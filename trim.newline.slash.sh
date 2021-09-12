@@ -7,5 +7,5 @@ set -eu
 _SLWTTSWN_() {
 awk '{ sub(/^[ \t]+/, ""); print }' "$1" | awk '{if (sub(/\\$/,"")) printf "%s", $0; else print $0}'
 }
-_SLWTTSWN_ "$@"
+# _SLWTTSWN_ "$@"
 # trim.newline.slash.sh EOF
