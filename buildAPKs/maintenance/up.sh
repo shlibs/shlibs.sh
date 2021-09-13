@@ -4,7 +4,6 @@
 # Updates the BuildAPKs git repository and git submodules to the newest version.
 ################################################################################
 set -eu
-
 _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/sha512.sum
 	! grep "setup.buildAPKs.bash" "$RDR"/sha512.sum || sed -i "/setup.buildAPKs.bash/d" "$RDR"/sha512.sum
 	FAUTH="DOSO DOSON DRLIM EXTSTDO GAUTH LIBAUTH QUIET RDR" # file list
@@ -89,6 +88,6 @@ _UP_
 IMFSTRG="scripts/sh/shlibs"
 MRASTRG="$SIADS/shlibs.sh"
 _UP_
-{ _PRT_ "Removing '.git' files;  This will update all the projects in directory ~/${RDR##/*}/sources/' to the newest version published when the build scripts are run: " && find "$RDR/sources/" -maxdepth 2 -type f -name .git -delete && _PRNT_ "DONE" ; } || _PESTRG_
+{ _PRT_ "Removing '.git' files;  This will update all the projects in directory '~/${RDR##*/}/sources/' to the newest version published when the build scripts are run: " && find "$RDR/sources/" -maxdepth 2 -type f -name .git -delete && _PRNT_ "DONE" ; } || _PESTRG_
 _PRNT_ "Script ${0##*/}: DONE"
 # up.sh EOF
