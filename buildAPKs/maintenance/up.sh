@@ -21,13 +21,7 @@ _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/s
 	done
 	rm -f sha512.sum # remove checksum file .conf/sha512.sum and temp file
 	cd "$RDR"
-	if sha512sum -c --quiet sha512.sum
-	then
-		printf "%s\\n"  "Checking checksums in directory ~/${RDR##*/} with sha512sum: DONE"
-	else
-		sha512sum -c sha512.sum
-		printf "%s\\n"  "Checking checksums in directory ~/${RDR##*/} with sha512sum: DONE"
-	fi
+	sha512sum -c --quiet sha512.sum
 }
 
 _PESTRG_ () {	# print WSTRING warning message
