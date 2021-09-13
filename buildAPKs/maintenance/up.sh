@@ -20,7 +20,7 @@ _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/s
 	done
 	rm -f sha512.sum # remove checksum file .conf/sha512.sum and temp file
 	cd "$RDR"
-	sha512sum -c --quiet sha512.sum
+	_PRT_  "Checking checksums in directory ~/${RDR##*/} with sha512sum: " && sha512sum -c --quiet sha512.sum && _PRNT_ "DONE"
 }
 
 _PESTRG_ () {	# print WSTRING warning message
@@ -28,13 +28,7 @@ _PESTRG_ () {	# print WSTRING warning message
 }
 
 _PRCS_ () {	# print checksums message and run sha512sum
-	_PRT_  "Checking checksums in directory ~/${RDR##*/}/$IMFSTRG with sha512sum: "
-	if "$COMDGREP" "\.\/\.scripts\/maintenance\/" sha512.sum 1>/dev/null
-	then
-		sed -i '/\.\/\.scripts\/maintenance\//d' sha512.sum
-	fi
-	sha512sum -c --quiet sha512.sum 2>/dev/null || sha512sum -c sha512.sum
-	_PRNT_ "DONE"
+	_PRT_  "Checking checksums in directory ~/${RDR##*/}/$IMFSTRG with sha512sum: " && sha512sum -c --quiet sha512.sum 2>/dev/null && _PRNT_ "DONE"
 }
 
 _PRNT_ () {	# print message with one trialing newline
