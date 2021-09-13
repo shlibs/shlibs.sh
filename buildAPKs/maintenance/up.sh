@@ -89,6 +89,6 @@ _UP_
 IMFSTRG="scripts/sh/shlibs"
 MRASTRG="$SIADS/shlibs.sh"
 _UP_
-{ _PRT_ "Removing '.git' files;  This will update modules to the newest version when the build scripts are run: " && find "$RDR/sources/" -maxdepth 2 -type f -name .git -delete && _PRNT_ "DONE" ; } || _PESTRG_
+{ _PRT_ "Removing '.git' files;  This will update all the projects in directory ~/${RDR##/*}/sources/' to the newest version published when the build scripts are run: " && find "$RDR/sources/" -maxdepth 2 -type f -name .git -delete && _PRNT_ "DONE" ; } || _PESTRG_
 _PRNT_ "Script ${0##*/}: DONE"
 # up.sh EOF
