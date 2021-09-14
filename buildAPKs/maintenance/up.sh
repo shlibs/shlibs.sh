@@ -40,7 +40,7 @@ _PRT_ () {	# print message with no trialing newline
 }
 
 _UP_ () {	# add or update git submodule repository
-	_PRT_ "Updating git submodule '~/${RDR##*/}/$IMFSTRG': " 
+	_PRT_ "Updating git submodule '~/${RDR##*/}/$IMFSTRG': "
 	( ( git submodule update --depth 1 --recursive --remote "$IMFSTRG" || git submodule add --depth 1 "$MRASTRG" "$IMFSTRG" ) && cd "$RDR/$IMFSTRG" && _PRCS_ && cd "$RDR" ) || _PESTRG_	# the command ` git submodule help ` and the book https://git-scm.com/book/en/v2/Git-Tools-Submodules have more information about git submodules.
 	sleep 0.$(shuf -i 24-72 -n 1)	# enhance device and network latency support on fast networks;  See ` grep -hC 4 -r sleep ~/buildAPKs/scripts ` for complementary latency applications of ` sleep ` when BuildAPKs is installed.  You can use https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash to set ~/buildAPKs up on device with ` curl -OL https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash ; bash setup.buildAPKs.bash `.  It appears that a little sleep can go a long way in reducing network collisions on fast networks.
 }
@@ -83,6 +83,6 @@ _UP_
 IMFSTRG="scripts/sh/shlibs"
 MRASTRG="$SIADS/shlibs.sh"
 _UP_
-{ _PRT_ "Removing '.git' files:  This permits updating the projects in directory '~/${RDR##*/}/sources/' to the newest version published when BuildAPKs module build scripts are run: " && find "$RDR/sources/" -maxdepth 2 -type f -name .git -delete && _PRNT_ "DONE" ; } || _PESTRG_
+{ _PRT_ "Removing '.git' files:  This permits updating project directories in '~/${RDR##*/}/sources/' to the newest version published when BuildAPKs build scripts are run: " && find "$RDR/sources/" -maxdepth 2 -type f -name .git -delete && _PRNT_ "DONE" ; } || _PESTRG_
 _PRNT_ "Script '${0##*/}': DONE"
 # up.sh EOF
