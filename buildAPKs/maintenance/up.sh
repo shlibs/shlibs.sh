@@ -20,7 +20,7 @@ _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/s
 	done
 	rm -f sha512.sum # remove checksum file .conf/sha512.sum and temp file
 	cd "$RDR"
-	_PRT_  "Checking checksums in directory ~/${RDR##*/} with sha512sum: " && sha512sum -c --quiet sha512.sum && _PRNT_ "DONE"
+	_PRT_  "Checking checksums in directory '~/${RDR##*/}' with sha512sum: " && sha512sum -c --quiet sha512.sum && _PRNT_ "DONE"
 }
 
 _PESTRG_ () {	# print WSTRING warning message
@@ -28,7 +28,7 @@ _PESTRG_ () {	# print WSTRING warning message
 }
 
 _PRCS_ () {	# print checksums message and run sha512sum
-	_PRT_  "Checking checksums in directory ~/${RDR##*/}/$IMFSTRG with sha512sum: " && sha512sum -c --quiet sha512.sum 2>/dev/null && _PRNT_ "DONE"
+	_PRT_  "Checking checksums in directory '~/${RDR##*/}/$IMFSTRG' with sha512sum: " && sha512sum -c --quiet sha512.sum 2>/dev/null && _PRNT_ "DONE"
 }
 
 _PRNT_ () {	# print message with one trialing newline
@@ -40,7 +40,7 @@ _PRT_ () {	# print message with no trialing newline
 }
 
 _UP_ () {	# add or update git submodule repository
-	_PRT_ "Updating git module '~/${RDR##*/}/sources/$IMFSTRG': " 
+	_PRT_ "Updating git submodule '~/${RDR##*/}/$IMFSTRG': " 
 	( ( git submodule update --depth 1 --recursive --remote "$IMFSTRG" || git submodule add --depth 1 "$MRASTRG" "$IMFSTRG" ) && cd "$RDR/$IMFSTRG" && _PRCS_ && cd "$RDR" ) || _PESTRG_	# the command ` git submodule help ` and the book https://git-scm.com/book/en/v2/Git-Tools-Submodules have more information about git submodules.
 	sleep 0.$(shuf -i 24-72 -n 1)	# enhance device and network latency support on fast networks;  See ` grep -hC 4 -r sleep ~/buildAPKs/scripts ` for complementary latency applications of ` sleep ` when BuildAPKs is installed.  You can use https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash to set ~/buildAPKs up on device with ` curl -OL https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash ; bash setup.buildAPKs.bash `.  It appears that a little sleep can go a long way in reducing network collisions on fast networks.
 }
