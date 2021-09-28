@@ -1,7 +1,7 @@
-#aG!/usr/bin/env sh
+#!/usr/bin/env sh
 # Copyright 2019-2021 (c) all rights reserved by BuildAPKs, see LICENSE
 # https://shlibs.github.io/shlibs.sh published courtesy https://pages.github.com
-# Updates the BuildAPKs git repository and git submodules to the newest version.
+# Updates the buildAPKs git repository and git submodules to the newest version.
 ################################################################################
 set -eu
 _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/sha512.sum
@@ -22,23 +22,11 @@ _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/s
 	cd "$RDR"
 	_PRT_  "Checking checksums in directory '~/${RDR##*/}' with sha512sum: " && sha512sum -c --quiet sha512.sum && _PRNT_ "DONE"
 }
-
-_PESTRG_ () {	# print WSTRING warning message
-	_PRNT_ "$WSTRING"
-}
-
-_PRCS_ () {	# print checksums message and run sha512sum
-	_PRT_  "Checking checksums in directory '~/${RDR##*/}/$IMFSTRG' with sha512sum: " && sha512sum -c --quiet sha512.sum 2>/dev/null && _PRNT_ "DONE"
-}
-
-_PRNT_ () {	# print message with one trialing newline
-	printf "%s\\n" "$1"
-}
-
-_PRT_ () {	# print message with no trialing newline
-	printf "%s" "$1"
-}
-
+_DONE_() { _PRNT_ "Script ${0##*/}: DONE" ; }	# print script done message
+_PESTRG_ () { _PRNT_ "$WSTRING" ; }	# print WSTRING warning message
+_PRCS_ () { _PRT_  "Checking checksums in directory '~/${RDR##*/}/$IMFSTRG' with sha512sum: " && sha512sum -c --quiet sha512.sum 2>/dev/null && _PRNT_ "DONE" ; }	# print checksums message and run sha512sum
+_PRNT_ () { printf "%s\\n" "$1" ; }	# print message with one trialing newline
+_PRT_ () { printf "%s" "$1" ; }	# print message with no trialing newline
 _UP_ () {	# add or update git submodule repository
 	_PRT_ "Updating git submodule '~/${RDR##*/}/$IMFSTRG': "
 	( ( git submodule update --depth 1 --recursive --remote "$IMFSTRG" || git submodule add --depth 1 "$MRASTRG" "$IMFSTRG" ) && cd "$RDR/$IMFSTRG" && _PRCS_ && cd "$RDR" ) || _PESTRG_	# the command ` git submodule help ` and the book https://git-scm.com/book/en/v2/Git-Tools-Submodules have more information about git submodules.
@@ -58,11 +46,11 @@ _PESTRG_
 COMDGREP="grep"	# define COMDGREP
 fi
 WSTRING="WARNING ${0##*/}; Continuing...  "	# define WSTRING warning message
-RDR="$HOME/buildAPKs"		# define root directory
+RDR="$HOME/buildAPKs"		# define project root directory
 SIAD="https://github.com"	# define site address
 SIADS="$SIAD/BuildAPKs"	# define remote login
-cd "$RDR"	# change directory to root directory
-git pull || ( git add && git commit && git pull ) || { printf "%s\\n"  "Please study the output of the first error.  If 'error: Your local changes to the following files would be overwritten by merge:' is found, directory '~/${RDR##*/}/stash' can be used to store files.  Then please use '${0##*/}' to update ~/${RDR##*/} to the most recent version published." ; _PRNT_ "Script ${0##*/}: DONE" ; exit 204 ; }	# attempt to update local git repository to the newest version published
+cd "$RDR"	# change directory to project root directory
+git pull || ( git add && git commit && git pull ) || { _PRNT_ "Please study the output of the first error.  If 'error: Your local changes to the following files would be overwritten by merge:' is found, directory '~/${RDR##*/}/stash' can be used to store files.  Then please use '${0##*/}' to update ~/${RDR##*/} to the most recent version published." ; _DONE_ ; exit 204 ; }	# attempt to update local git repository to the newest version published
 _CSLIST_ || _PESTRG_	# run function _PESTRG_ if function _CSLIST_ errs
 sleep 0.$(shuf -i 24-72 -n 1)	# add device and network latency support;  Commands like this script can request many read write operations.  The sleep plus shuf commands cause this script to wait for a short pseudo random period of time.  This can ease excessive device latency when running these build scripts.
 if "$COMDGREP" gitmodules sha512.sum 1>/dev/null
@@ -83,6 +71,6 @@ _UP_
 IMFSTRG="scripts/sh/shlibs"
 MRASTRG="$SIADS/shlibs.sh"
 _UP_
-{ _PRT_ "Removing '.git' files:  This permits updating project directories in '~/${RDR##*/}/sources/' to the newest version published when BuildAPKs build scripts are run: " && find "$RDR/sources/" -maxdepth 2 -type f -name .git -delete && _PRNT_ "DONE" ; } || _PESTRG_
-_PRNT_ "Script '${0##*/}': DONE"
+{ _PRT_ "Removing '.git' files which permits updating project directories in '~/${RDR##*/}/sources/' to the newest version published when BuildAPKs build scripts be run: " && find "$RDR/sources/" -maxdepth 2 -type f -name .git -delete && _PRNT_ "DONE" ; } || _PESTRG_
+_DONE_
 # up.sh EOF
