@@ -71,6 +71,6 @@ _UP_
 IMFSTRG="scripts/sh/shlibs"
 MRASTRG="$SIADS/shlibs.sh"
 _UP_
-{ _PRT_ "Removing '.git' files which permits updating project directories in '~/${RDR##*/}/sources/' to the newest version published when BuildAPKs build scripts be run: " && find "$RDR/sources/" -maxdepth 2 -type f -name .git -delete && _PRNT_ "DONE" ; } || _PESTRG_
+{ _PRT_ "Removing '.git' files permits updating project directories in '~/${RDR##*/}/sources/' to the newest version published when a BuildAPKs build script is run: " && find "$RDR/sources/" -maxdepth 2 -type f -name .git -delete && _PRNT_ "DONE" ; } || _PESTRG_
 _DONE_
 # up.sh EOF
