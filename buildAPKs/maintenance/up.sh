@@ -5,7 +5,7 @@
 ################################################################################
 set -eu
 _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/sha512.sum
-	! grep "setup.buildAPKs.bash" "$RDR"/sha512.sum || sed -i "/setup.buildAPKs.bash/d" "$RDR"/sha512.sum
+	! grep "setup.buildAPKs.bash" "$RDR"/sha512.sum 1>/dev/null || sed -i "/setup.buildAPKs.bash/d" "$RDR"/sha512.sum
 	FAUTH="DOSO DOSON DRLIM EXTSTDO GAUTH LIBAUTH QUIET RDR" # file list
 	cd "$RDR"/.conf/
 	sha512sum $FAUTH > sha512.sum	# create checksum file RDR/.conf/sha512.sum
