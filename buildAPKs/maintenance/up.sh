@@ -33,6 +33,7 @@ _UP_ () {	# add or update git submodule repository
 	sleep 0.$(shuf -i 24-72 -n 1)	# enhance device and network latency support on fast networks;  See ` grep -hC 4 -r sleep ~/buildAPKs/scripts ` for complementary latency applications of ` sleep ` when BuildAPKs is installed.  You can use https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash to set ~/buildAPKs up on device with ` curl -OL https://raw.githubusercontent.com/BuildAPKs/buildAPKs/master/setup.buildAPKs.bash ; bash setup.buildAPKs.bash `.  It appears that a little sleep can go a long way in reducing network collisions on fast networks.
 }
 
+_BGUP_() {	# begin updates
 _PRNT_ "Script '${0##*/}': STARTED..."
 WSTRING="WARNING: Could not determine grep command ${0##*/}; Continuing...  "	# define WSTRING warning message
 if command -v /system/bin/grep 1>/dev/null
@@ -73,4 +74,14 @@ MRASTRG="$SIADS/shlibs.sh"
 _UP_
 { _PRT_ "Removing '.git' files permits updating project directories in '~/${RDR##*/}/sources/' to the newest version published when a BuildAPKs build script is run: " && find "$RDR/sources/" -maxdepth 2 -type f -name .git -delete && _PRNT_ "DONE" ; } || _PESTRG_
 _DONE_
+}
+set +e
+PVAR="$(ping -n 1 github.com 2>&1)"
+set -e
+if [ -z "${PVAR##*connect*}" ]
+then
+	_BGUP_
+else
+	printf '%s\n' "not connectected"
+fi
 # up.sh EOF
