@@ -4,18 +4,24 @@
 # Deletes '.git' directories and '*.log' files in ~/buildAPKs in order to save space in the $HOME/buildAPKs directory.
 #####################################################################
 set -eu
-RDR="$HOME/buildAPKs"		# define project root directory
-_DELDIRS_ () {	# delete '.git' directories
+# RDR="$HOME/buildAPKs"		# define project root directory
+_DLGDIRS_ () {	# delete '.git' directories
 	find "$RDR"/sources/ -type d -name \.git > "$RDR"/tmp/del.dirs.file
-	for DELDIR in $(cat "$RDR"/tmp/del.dirs.file) ; do rm -rf "$DELDIR" && printf '%s\n' "Deleted directory '$DELDIR '." && rm  -f "$RDR"/tmp/del.dirs.file ; done
+	grep -v '^ *#' < "$RDR"/tmp/del.dirs.file | while IFS= read -r DELDIR
+	do
+	rm -rf "$DELDIR" && printf '%s\n' "Deleted directory '$DELDIR '."
+	done
+	rm  -f "$RDR"/tmp/del.dirs.file
 }
-_DELFILES_ () { # delete '*.log' files
+_DLFILES_ () { # delete '*.log' files
 	 printf '%s\n' "Deleting '*.log' files in directory '$RDR/var/log/'." && find "$RDR"/var/log/ -type f -name "*.log" -delete
 }
+_DOTRIMN_ () {	# delete '.git' directories
 DFEM="$(df | grep emulated)"
 printf '%s\n' "$DFEM"
-_DELDIRS_ ; _DELFILES_
+_DELDIRS_ ; _DLFILES_
 printf '%s\n' "Before:	$DFEM"
 DFEM="$(df | grep emulated)"
 printf '%s\n' "After:	$DFEM"
+}
 # trim.sh EOF
