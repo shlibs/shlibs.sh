@@ -82,6 +82,6 @@ if [ -z "${PVAR##*connect*}" ]
 then
 	_BGUP_
 else
-	printf '%s\n' "not connectected"
+	printf '%s\n' "not connected"
 fi
 # up.sh EOF
