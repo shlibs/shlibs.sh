@@ -76,7 +76,7 @@ _UP_
 _DONE_
 }
 set +e
-PVAR="$(ping -n 1 github.com 2>&1)"
+PVAR="$(ping -n 1 8.8.8.8 2>&1)"
 set -e
 if [ -z "${PVAR##*connect*}" ]
 then
