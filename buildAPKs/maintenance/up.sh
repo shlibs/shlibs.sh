@@ -35,7 +35,7 @@ _UP_ () {	# add or update git submodule repository
 
 _BGUP_() {	# begin updates
 _PRNT_ "Script '${0##*/}': STARTED..."
-WSTRING="WARNING: Could not determine grep command ${0##*/}; Continuing...  "	# define WSTRING warning message
+WSTRING="WARNING: Could not determine grep command ${0##*/}: Continuing...  "	# define WSTRING warning message
 if command -v /system/bin/grep 1>/dev/null
 then
 COMDGREP="/system/bin/grep"	# define COMDGREP
@@ -46,12 +46,12 @@ else
 _PESTRG_
 COMDGREP="grep"	# define COMDGREP
 fi
-WSTRING="WARNING ${0##*/}; Continuing...  "	# define WSTRING warning message
+WSTRING="WARNING ${0##*/}: Continuing...  "	# define WSTRING warning message
 RDR="$HOME/buildAPKs"		# define project root directory
 SIAD="https://github.com"	# define site address
 SIADS="$SIAD/BuildAPKs"	# define remote login
 cd "$RDR"	# change directory to project root directory
-_PRNT_ "Please use 'cd ~/${RDR##*/} ; mv sources .. ; ./update.buildAPKs.sh ; mv ../sources .' if you wish to shorten the update commit;  Continuing..."
+_PRNT_ "Please use 'cd ~/${RDR##*/} ; mv sources .. ; ./update.buildAPKs.sh ; mv ../sources .' if you wish to shorten the update commit: Continuing..."
 sleep $(shuf -i 3-6 -n 1)
 git pull || { _PRNT_ "Please study the output of the first error.  If 'error: Your local changes to the following files would be overwritten by merge:' is found, directory '~/${RDR##*/}/stash' can be used to store files.  Then use '${0##*/}' to update ~/${RDR##*/} to the most recent version published." ; _DONE_ ; exit 204 ; }	# attempt to update local git repository to the newest version published
 _CSLIST_ || _PESTRG_	# run function _PESTRG_ if function _CSLIST_ errs
