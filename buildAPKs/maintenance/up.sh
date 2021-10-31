@@ -53,7 +53,7 @@ SIADS="$SIAD/BuildAPKs"	# define remote login
 cd "$RDR"	# change directory to project root directory
 _PRNT_ "Please use 'cd ~/${RDR##*/} ; mv sources .. ; ./update.buildAPKs.sh ; mv ../sources .' if you wish to shorten the update commit: Continuing..."
 sleep $(shuf -i 3-6 -n 1)
-git pull || { _PRNT_ "Please study the output of the first error.  If 'error: Your local changes to the following files would be overwritten by merge:' is found, directory '~/${RDR##*/}/stash' can be used to store files.  Then use '${0##*/}' to update ~/${RDR##*/} to the most recent version published." ; _DONE_ ; exit 204 ; }	# attempt to update local git repository to the newest version published
+git pull || { _PRNT_ "Please study the output of the first error.  If 'error: Your local changes to the following files would be overwritten by merge:' is found, directory '~/${RDR##*/}/stash' can be used to store files.  Then run '${0##*/}' again to update ~/${RDR##*/} to the most recent version published." ; _DONE_ ; exit 204 ; }	# attempt to update local git repository to the newest version published
 _CSLIST_ || _PESTRG_	# run function _PESTRG_ if function _CSLIST_ errs
 sleep 0.$(shuf -i 24-72 -n 1)	# add device and network latency support;  Commands like this script can request many read write operations.  The sleep plus shuf commands cause this script to wait for a short pseudo random period of time.  This can ease excessive device latency when running these build scripts.
 if "$COMDGREP" gitmodules sha512.sum 1>/dev/null
