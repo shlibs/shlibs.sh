@@ -6,18 +6,18 @@
 set -eu
 
 _MKVFILES_ () { # create list from arguments
-	ARGS="$@"
-	NAMESFL=""
-	for ARG in $ARGS
-	do
-		NAMESFL="$NAMESFL $ARG"
-	done
-	for AFILE in $NAMESFL
-	do
-		if [ ! -e  "$RDR/var/$AFILE" ] # AFILE does not exist in RDR/var
-		then # create AFILE in RDR/var
-			touch "$RDR/var/$AFILE"
-		fi
-	done
+ARGS="$@"
+NAMESFL=""
+for ARG in $ARGS
+do
+NAMESFL="$NAMESFL $ARG"
+done
+for AFILE in $NAMESFL
+do
+if [ ! -e  "$RDR/var/$AFILE" ] # AFILE does not exist in RDR/var
+then # create AFILE in RDR/var
+touch "$RDR/var/$AFILE"
+fi
+done
 }
 # mkfiles.sh EOF
