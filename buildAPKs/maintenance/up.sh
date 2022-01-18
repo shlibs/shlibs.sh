@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# Copyright 2019-2021 (c) all rights reserved by BuildAPKs, see LICENSE
+# Copyright 2019-2022 (c) all rights reserved by S D Rausty;  Please see LICENSE
 # https://shlibs.github.io/shlibs.sh published courtesy https://pages.github.com
 # Updates the buildAPKs git repository and git submodules to the newest version.
 ################################################################################
@@ -34,8 +34,8 @@ _UP_ () {	# add or update git submodule repository
 }
 
 _BGUP_() {	# begin updates
-_PRNT_ "Script '${0##*/}': STARTED..."
-WSTRING="WARNING: Could not determine grep command ${0##*/}: Continuing...  "	# define WSTRING warning message
+_PRNT_ "Script '${0##*/}':  STARTED..."
+WSTRING="WARNING: Could not determine grep command ${0##*/}:  Continuing...  "	# define WSTRING warning message
 if command -v /system/bin/grep 1>/dev/null
 then
 COMDGREP="/system/bin/grep"	# define COMDGREP
@@ -46,7 +46,7 @@ else
 _PESTRG_
 COMDGREP="grep"	# define COMDGREP
 fi
-WSTRING="WARNING ${0##*/}: Continuing...  "	# define WSTRING warning message
+WSTRING="WARNING ${0##*/}:  Continuing...  "	# define WSTRING warning message
 RDR="$HOME/buildAPKs"		# define project root directory
 SIAD="https://github.com"	# define site address
 SIADS="$SIAD/BuildAPKs"	# define remote login
@@ -78,12 +78,14 @@ _UP_
 _DONE_
 }
 set +e
-PVAR="$(ping -n 1 8.8.8.8 2>&1)"
+PVAR="$(ping -n 1 1.1.1.1 2>&1)"
 set -e
-if [ -z "${PVAR##*connect*}" ]
+if [ -n "${PVAR##*unreachable*}" ]
 then
 	_BGUP_
 else
-	printf '%s\n' "not connected"
+	_PRT_ "Script '${0##*/}':  STARTED... "
+	printf '%s;  Please check your wireless connection and run %s again.  Exiting... ' "$PVAR" "${0##*/}"
+	_PRNT_ "DONE"
 fi
 # up.sh EOF

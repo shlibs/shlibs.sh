@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
-# Copyright 2020-2021 (c) all rights reserved by S D Rausty; See LICENSE
+# Copyright 2020-2022 (c) all rights reserved by S D Rausty;  Please see LICENSE
 # File `apkkey.sh` is under development
-#####################################################################
+################################################################################
 set -eu
 RDR="$HOME/buildAPKs"		# define root directory
 . "$RDR/scripts/sh/shlibs/inst.sh"

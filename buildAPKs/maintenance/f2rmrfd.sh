@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
-# Copyright 2019-2021 (c) all rights reserved by SDRausty see LICENSE
+# Copyright 2019-2022 (c) all rights reserved by S D Rausty;  Please see LICENSE
 # https://sdrausty.github.io hosted courtesy https://pages.github.com
 # File  ` f3rmrfd.sh `  deletes files and subdirectories with find to
 # rerun ` build.github.bash login ` and also to save space on device.
-#####################################################################
+################################################################################
 set -eu
 export RDR="$HOME/buildAPKs"
 _F1RMRFMAIN_ () {

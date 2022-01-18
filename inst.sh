@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
-# Copyright 2020-2021 (c) all rights reserved by S D Rausty; See LICENSE
+# Copyright 2020-2022 (c) all rights reserved by S D Rausty;  Please see LICENSE
 # File `inst.sh` is under development
-#####################################################################
+################################################################################
 set -eu
 _INST_() {
 # check for neccessary commands: begin

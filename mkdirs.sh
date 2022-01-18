@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
-# Copyright 2019-2021 (c) all rights reserved by S D Rausty; see LICENSE
+# Copyright 2019-2022 (c) all rights reserved by S D Rausty;  Please see LICENSE
 # https://sdrausty.github.io hosted courtesy https://pages.github.com
 # adds directory in RDR from arguments
-#####################################################################
+################################################################################
 set -eu
 
 _MKDIRS_ () { # create directories from arguments

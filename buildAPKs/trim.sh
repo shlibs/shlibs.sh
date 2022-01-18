@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
-# Copyright 2021 (c) by S D Rausty all rights reserved;  Please see LICENSE
+# Copyright 2021-2022 (c) by S D Rausty all rights reserved;  Please see LICENSE
 # https://sdrausty.github.io hosted courtesy https://pages.github.com
 # Deletes '.git' directories and '*.log' files in ~/buildAPKs in order to save space in the $HOME/buildAPKs directory.
-#####################################################################
+################################################################################
 set -eu
 # RDR="$HOME/buildAPKs"		# define project root directory
 _DLGDIRS_ () {	# delete '.git' directories

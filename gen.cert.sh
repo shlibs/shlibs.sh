@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
-# Copyright 2017-2021 (c) all rights reserved by BuildAPKs
+# Copyright 2017-2022 (c) all rights reserved by S D Rausty;  Please see LICENSE
 # See LICENSE for details https://buildapks.github.io/docsBuildAPKs/
-#####################################################################
+################################################################################
 set -eu
 [ -z "${RDR:-}" ] && RDR="$HOME/buildAPKs"
 . "$RDR/scripts/sh/shlibs/inst.sh"
