@@ -20,11 +20,11 @@ _CSLIST_ () {	# create checksum file RDR/.conf/sha512.sum and compare with RDR/s
 	done
 	rm -f sha512.sum # remove checksum file .conf/sha512.sum and temp file
 	cd "$RDR"
-	_PRT_  "Checking checksums in directory '~/${RDR##*/}' with sha512sum: " && sha512sum -c --quiet sha512.sum && _PRNT_ "DONE"
+	_PRT_  "Checking checksums in directory '~/${RDR##*/}' with sha512sum: " && sha512sum -c --quiet sha512.sum && _PRNT_ "DONE "
 }
-_DONE_() { _PRNT_ "Script ${0##*/}: DONE" ; }	# print script done message
+_DONE_() { _PRNT_ "Script ${0##*/}: DONE " ; }	# print script done message
 _PESTRG_ () { _PRNT_ "$WSTRING" ; }	# print WSTRING warning message
-_PRCS_ () { _PRT_  "Checking checksums in directory '~/${RDR##*/}/$IMFSTRG' with sha512sum: " && sha512sum -c --quiet sha512.sum 2>/dev/null && _PRNT_ "DONE" ; }	# print checksums message and run sha512sum
+_PRCS_ () { _PRT_  "Checking checksums in directory '~/${RDR##*/}/$IMFSTRG' with sha512sum: " && sha512sum -c --quiet sha512.sum 2>/dev/null && _PRNT_ "DONE " ; }	# print checksums message and run sha512sum
 _PRNT_ () { printf "%s\\n" "$1" ; }	# print message with one trialing newline
 _PRT_ () { printf "%s" "$1" ; }	# print message with no trialing newline
 _UP_ () {	# add or update git submodule repository
@@ -74,7 +74,7 @@ _UP_
 IMFSTRG="scripts/sh/shlibs"
 MRASTRG="$SIADS/shlibs.sh"
 _UP_
-{ _PRT_ "Removing '.git' files;  This permits updating project directories in '~/${RDR##*/}/sources/' to the newest version published automatically when some of the BuildAPKs build scripts are run: " && find "$RDR/sources/" -maxdepth 2 -type f -name .git -delete && _PRNT_ "DONE" ; } || _PESTRG_
+{ _PRT_ "Removing '.git' files;  This permits updating project directories in '~/${RDR##*/}/sources/' to the newest version published automatically when some of the BuildAPKs build scripts are run: " && find "$RDR/sources/" -maxdepth 2 -type f -name .git -delete && _PRNT_ "DONE " ; } || _PESTRG_
 _DONE_
 }
 set +e
@@ -85,7 +85,7 @@ then
 	_BGUP_
 else
 	_PRT_ "Script '${0##*/}':  STARTED... "
-	printf '%s;  Please check your wireless connection and run %s again.  Exiting... ' "$PVAR" "${0##*/}"
-	_PRNT_ "DONE"
+	printf '%s;  Please check your wireless connection and run %s again.  Exiting... ' "$PVAR" "'${0##*/}'"
+	_PRNT_ "DONE "
 fi
 # up.sh EOF
