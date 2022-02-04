@@ -5,20 +5,21 @@
 ################################################################################
 set -eu
 _RUNCHECK_() {
+if [ -e /system/bin/ping ]
+then
 set +e
 PNGVAR="$(/system/bin/ping -n 1 1.1.1.1 2>&1)"
-set -e
-if [ -n "${PNGVAR##*No*}" ]
-then
+else
 set +e
 PNGVAR="$(ping -n 1 1.1.1.1 2>&1)"
-set -e
 fi
+set -e
 if [ -n "${PNGVAR##*unreachable*}" ]
 then
-	CHKVAR=0 && printf 'Connected;  Exiting... \n'
+	printf 'Connected;  Exiting... \n'
 else
-	CHKVAR=1 && printf 'Not connected;  Exiting... \n'
+	printf 'Not connected;  Exiting... \n'
 fi
-} && _RUNCHECK_
-# ic.sh EF
+}
+_RUNCHECK_
+# shlibs/shlibs.sh/ic.sh EF
