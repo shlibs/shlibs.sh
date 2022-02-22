@@ -1,0 +1,257 @@
+#!/usr/bin/env sh
+# MIT License
+#
+# Copyright (c) 2021 Jonatha Gabriel
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# Helper variables
+_key=""
+_certificate=""
+_in_file=""
+_out_file=""
+
+_err_msg=""
+_should_gen_key=""
+
+# Sign function
+sign()
+{
+    _tmpdir=$(mktemp -d)
+    _metainf="$_tmpdir/META-INF"
+    _manifest="$_metainf/MANIFEST.MF"
+    _signature="$_metainf/CERT.SF"
+    _signature_block="$_metainf/CERT.RSA"
+
+    # Put string to file
+    _put_in()
+    {
+        printf "$2" >> $1
+        printf "\r\n" >> $1
+    }
+
+    # Generate digest
+    _get_digest()
+    {
+        if [ -e "$1" ]; then
+            digest=$(openssl sha1 -binary $1 | openssl base64)
+        else
+            digest=$(printf "$1" | openssl sha1 -binary | openssl base64)
+        fi
+
+        printf "${digest}"
+    }
+
+    # Create META-INF directory
+    mkdir -p $_metainf
+
+    # Manifest file header
+    _put_in $_manifest "Manifest-Version: 1.0"
+    _put_in $_manifest "Created-By: 1.0 (j0ng4b Signapk)"
+    _put_in $_manifest ""
+
+    # Signature file header
+    _put_in $_signature "Signature-Version: 1.0"
+    _put_in $_signature "Created-By: 1.0 (j0ng4b Signapk)"
+    _put_in $_signature "SHA1-Digest-Manifest: $(_get_digest $_manifest)"
+    _put_in $_signature ""
+
+    # Generate entries
+    for _file in $(aapt list $_in_file); do
+        case ${_file##*.} in
+            MF | SF | RSA) continue ;;
+        esac
+
+        unzip -qqd $_tmpdir $_in_file $_file
+
+        _name="Name: $_file"
+        _mf_digest="SHA1-Digest: $(_get_digest $_tmpdir/$_file)"
+
+        _sf_digest="$_name\r\n$_mf_digest\r\n\r\n"
+        _sf_digest="SHA1-Digest: $(_get_digest "$_sf_digest")"
+
+        # Manifest entry
+        _put_in $_manifest "$_name"
+        _put_in $_manifest "$_mf_digest"
+        _put_in $_manifest ""
+
+        # Signature entry
+        _put_in $_signature "$_name"
+        _put_in $_signature "$_sf_digest"
+        _put_in $_signature ""
+    done
+
+    # Generate the signature block
+    openssl smime -sign -md sha1 -binary -noattr -keyform der -outform der \
+        -in $_signature -out $_signature_block -inkey $_key \
+        -signer $_certificate
+
+    # Add signature files to apk
+    cp $_in_file $_out_file
+    cd $_tmpdir
+    aapt add $_out_file $(basename $_metainf)/* 1>/dev/null
+
+    # Remove temporary directory
+    rm -rf $_tmpdir
+}
+
+# Generate self-signed key and certificate
+genkey()
+{
+    _tmpdir=$(mktemp -d)
+    _key_pem=$_tmpdir/$(basename $_key)
+
+    # Generate a PKCS#10 key and certificate
+    openssl req -x509 -nodes -newkey rsa:4096 \
+        -keyout $_key_pem -out $_certificate
+
+    # Convert the PKCS#10 key to PKCS#8 key compatible with Android
+    # apksigner
+    openssl pkcs8 -topk8 -in $_key_pem -inform pem -out $_key -outform der \
+        -nocrypt
+
+    rm -rf $_tmpdir
+}
+
+# Show script usage
+show_usage()
+{
+    _prog_name=$(basename $0)
+
+    if [ "$_err_msg" ]; then
+        echo "$_prog_name $_err_msg"
+        echo "Try '$_prog_name --help' for more information."
+        exit 1
+    fi
+
+    echo "Usage:"
+    echo "  $_prog_name sign --key key.pk8 --cert cert.x509.pem \\
+        --out output.apk [--in] input.apk"
+    echo "    Sign a apk file with specific key and certificate files"
+    echo ""
+    echo "  $_prog_name genkey --key key.pk8 --cert cert.x509.pem"
+    echo "    Generate a key and certificate"
+    echo ""
+    echo "  Modifiers:"
+    echo "    -k,--key     key file to use or output to"
+    echo "    -c,--cert    certificate file to use or output to"
+    echo "    -i,--in      apk file to sign, this option can be omitted"
+    echo "    -o,--out     signed apk file destiny"
+    echo ""
+}
+
+# Utility function that return the absolute file instead relative path files
+_get_absolute_path()
+{
+    _file=$1
+    echo "$(cd $(dirname $_file) && pwd)/$(basename $_file)"
+}
+
+# Utility function that check if a option has proper arguments
+_check_argument()
+{
+    _opt=$1
+    _var=$2
+    _arg=$3
+
+    if [ ${_arg#-} != $_arg -o -z $_arg ]; then
+        _err_msg="error: no file specified for option '$_opt'!"
+        show_usage
+    else
+        eval $_var=$(_get_absolute_path $_arg)
+    fi
+}
+
+# Parse command line arguments
+while [ "$#" -gt 0 ]; do
+    case $1 in
+        genkey)
+            _should_gen_key="true"
+            shift
+            ;;
+
+        sign)
+            _should_gen_key="false"
+            shift
+            ;;
+
+        -k | --key)
+            _check_argument $1 "_key" $2
+            shift 2
+            ;;
+
+        -c | --cert)
+            _check_argument $1 "_certificate" $2
+            shift 2
+            ;;
+
+        -i | --in)
+            _check_argument $1 "_in_file" $2
+            shift 2
+            ;;
+
+        *.apk)
+            _in_file=$(_get_absolute_path $1)
+            shift 1
+            ;;
+
+        -o | --out)
+            _check_argument $2 "_out_file" $2
+            shift 2
+            ;;
+
+        -h | --help)
+            show_usage
+            exit
+            ;;
+
+        *)
+            _err_msg="error: unrecognized argument '$1'!"
+            show_usage
+            ;;
+    esac
+done
+
+# Display error messages
+if [ -n "$_should_gen_key" ]; then
+    [ -z "$_key" ] && _err_msg="error: no key specified!"
+    [ -z "$_certificate" ] && _err_msg="error: no certificate specified!"
+
+    if [ "$_should_gen_key" = "false" ]; then
+        [ ! -e "$_key" ] && _err_msg="error: key must exists!"
+        [ ! -e "$_certificate" ] && _err_msg="error: certificate must exists!"
+
+        [ -z "$_in_file" ] && _err_msg="error: no input file specified!"
+        [ ! -e "$_in_file" ] && _err_msg="error: input file must exists!"
+
+        [ -z "$_out_file" ] && _err_msg="error: no output file specified!"
+    fi
+else
+    _err_msg="error: no command provided!"
+fi
+
+[ -n "$_err_msg" ] && show_usage
+
+# Sign the apk or generate a key
+if [ "$_should_gen_key" = "false" ]; then
+    sign
+elif [ "$_should_gen_key" = "true" ]; then
+    genkey
+fi
+
